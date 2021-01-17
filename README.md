@@ -8,7 +8,7 @@ The features are based on the challenge requirements; all the extras are marked 
  
 ### Movie search:
  
-The app uses the [OMDB] (http://www.omdbapi.com) API to search for movies by title. The search is intentionally limited to movies only.
+The app uses the [OMDB](http://www.omdbapi.com) API to search for movies by title. The search is intentionally limited to movies only.
  
 :sparkles: The API only returns 10 results per request. If the search returns over 10 results, the Show More button displays pages 2+ of the search results.
 

@@ -1,14 +1,20 @@
 # The Shoppies by Daria
  
 An application used to search movies and nominate them for The Shoppies, a fictional movie award. Built with React, [Create React App](https://github.com/facebook/create-react-app), JavaScript and CSS.
- 
+
+
+![App screenshot - top](https://user-images.githubusercontent.com/68360696/104829252-fc0fa600-583f-11eb-9a90-f09a66f0d99a.png)
+
+
+
 ## Features
  
 The features are based on the challenge requirements; all the extras are marked with :sparkles:.
+
  
 ### Movie search:
  
-The app uses the [OMDB] (http://www.omdbapi.com) API to search for movies by title. The search is intentionally limited to movies only.
+The app uses the [OMDB](http://www.omdbapi.com) API to search for movies by title. The search is intentionally limited to movies only.
  
 :sparkles: The API only returns 10 results per request. If the search returns over 10 results, the Show More button displays pages 2+ of the search results.
 
@@ -22,8 +28,12 @@ The app uses the [OMDB] (http://www.omdbapi.com) API to search for movies by tit
 Users are requested to nominate five movies from their search results. Their nominations appear under Your Nominations. From there, the user can view detailed information about the movie or remove it from nominations.
  
 :sparkles: Nominations are saved to the browser's local storage and restored next time they visit the page (unless they've submitted the nominations in their previous session).
+
+
+![App screenshot - search and nominations](https://user-images.githubusercontent.com/68360696/104829276-409b4180-5840-11eb-81b4-8fbfdae13c2a.png)
  
- 
+
+
 ### Submitting the nominations:
  
 When the user has selected five movies, a banner appears next to the nominations, allowing them to submit their choice.
@@ -31,6 +41,7 @@ When the user has selected five movies, a banner appears next to the nominations
 :sparkles: The submission triggers a confirmation screen to appear.
 
 :sparkles: The nominations are removed from the local storage on submission, making the app reusable for demonstration purposes.
+
  
 ### UI features:
  

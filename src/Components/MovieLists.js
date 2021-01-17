@@ -80,6 +80,13 @@ class MovieLists extends React.Component {
     }
 
     search(searchTerm, page, isSubmitted) {
+        
+        // Trim spaces in the begining/end of the search term:
+        if (searchTerm.match(/^\s/)) {
+            searchTerm = searchTerm.slice(1,);
+        } if (searchTerm.match(/\s$/)) {
+            searchTerm = searchTerm.slice(0, searchTerm.length-1);
+        }
 
         // Trim spaces in the begining/end of the search term:
         if (searchTerm.match(/^\s/)) {

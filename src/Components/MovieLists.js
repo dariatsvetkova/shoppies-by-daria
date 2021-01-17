@@ -81,6 +81,13 @@ class MovieLists extends React.Component {
 
     search(searchTerm, page, isSubmitted) {
 
+        // Trim spaces in the begining/end of the search term:
+        if (searchTerm.match(/^\s/)) {
+            searchTerm = searchTerm.slice(1,);
+        } if (searchTerm.match(/\s$/)) {
+            searchTerm = searchTerm.slice(0, searchTerm.length - 1);
+        }
+
         // Reset the search term if the input field has been emptied:
         if (searchTerm === "") {
             return this.setState({
@@ -90,6 +97,8 @@ class MovieLists extends React.Component {
                 totalResults: 0
             });
         }
+
+        console.log("search term: ", searchTerm);
 
         // Combine input into the url for the API request:
         let url = new URL("https://www.omdbapi.com/"),

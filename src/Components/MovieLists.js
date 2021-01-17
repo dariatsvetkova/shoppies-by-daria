@@ -92,7 +92,7 @@ class MovieLists extends React.Component {
         }
 
         // Combine input into the url for the API request:
-        let url = new URL("http://www.omdbapi.com/"),
+        let url = new URL("https://www.omdbapi.com/"),
             params = {
                 s: searchTerm,
                 type: "movie",
@@ -111,6 +111,12 @@ class MovieLists extends React.Component {
         // Retreive the API data or show error:
         .then(response => {
             if (!response.ok) { 
+                this.setState({
+                    isLoading: false,
+                    searchResults: [],
+                    searchAlert: "Something went wrong. Please try again.",
+                    totalResults: 0
+                })
                 throw new Error("Can't connect to the API")
             }
             return response.json();

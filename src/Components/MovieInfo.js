@@ -27,7 +27,7 @@ class MovieInfo extends React.Component {
         document.getElementById("root").addEventListener("click", this.shouldClose, false);
 
         // Fetch movie details from the API:
-        let url = new URL("http://www.omdbapi.com/"),
+        let url = new URL("https://www.omdbapi.com/"),
             params = {
                 i: this.props.imdbID,
                 y: this.props.Year,

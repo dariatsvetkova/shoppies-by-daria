@@ -85,7 +85,7 @@ class MovieLists extends React.Component {
         if (searchTerm.match(/^\s/)) {
             searchTerm = searchTerm.slice(1,);
         } if (searchTerm.match(/\s$/)) {
-            searchTerm = searchTerm.slice(0, searchTerm.length - 1);
+            searchTerm = searchTerm.slice(0, searchTerm.length-1);
         }
 
         // Reset the search term if the input field has been emptied:

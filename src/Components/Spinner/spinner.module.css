@@ -1,0 +1,35 @@
+.spinnerContainer {
+  display: block;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  background: none;
+  animation: appear 0.5s 1;
+}
+
+.spinnerBackground {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(1);
+  backface-visibility: hidden;
+  transform-origin: 0 0;
+}
+
+.spinner {
+  box-sizing: content-box;
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  width: 60px;
+  height: 60px;
+  border: 10px solid var(--SH-green);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%,-50%) rotate(0deg); }
+  100% { transform: translate(-50%,-50%) rotate(360deg); }
+}

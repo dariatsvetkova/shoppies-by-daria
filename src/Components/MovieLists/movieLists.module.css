@@ -1,0 +1,26 @@
+.movieLists {
+  background-color: var(--SH-mint);
+}
+
+.movieLists h2 {
+  grid-column: 2/8;
+  grid-row: 1/2;
+  margin: 2em auto 0.5em auto;
+}
+
+.searchLoading {
+  grid-column: 2/6;
+  grid-row: 3/4;
+  align-self: flex-start;
+  margin-bottom: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: 0.5s 1 appear;
+}
+
+@media screen and (max-width: 600px) {
+  .movieLists h2 {
+    grid-column: 2/3;
+  }
+}

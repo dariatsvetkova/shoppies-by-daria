@@ -1,0 +1,169 @@
+/* -- SECTION STYLES -- */
+
+/* --- Header --- */
+
+header {
+  width: 100vw;
+  background-color: var(--SH-light-yellow);
+  background: linear-gradient(270deg, #FFFFFF 45%, rgba(255, 255, 255, 0) 72%), url(../../Images/pexels-daria-shevtsova-horizontal.jpg);
+  background-position: center left 0;
+  background-size: 100%, 60%;
+  background-repeat: no-repeat;
+  animation: appear 1s 1;
+}
+
+header>* {
+  grid-column: 4/8;
+  align-self: flex-end;
+  text-align: right;
+}
+
+header .heading {
+  display: inline-block;
+  margin: 3.875em 0 1em 0;
+  color: var(--SH-black);
+}
+
+.heading .logo {
+  max-width: 7.4em;
+  display: inline-block;
+  margin: 0.5em 0 -1em -1em;
+}
+
+.heading h1, .heading span {
+  display: inline-block;
+  margin: -0.2em 0 -0.2em -0.2em;
+}
+
+.subheading {
+  color: var(--SH-black);
+  font-style: normal;
+  font-weight: 300;
+  font-size: 2em;
+  line-height: 1.25em;
+}
+
+header .buttonContainer {
+  margin: 1em 0 6.5em 0;
+}
+
+
+/* --- Main --- */
+
+main {
+  animation: appear 1s 1;
+}
+
+/* ---- Intro ---- */
+
+.intro {
+  padding: 3em 0;
+}
+
+.intro>* {
+  grid-column: 2/8;
+  text-align: center;
+}
+
+/* --- Footer --- */
+
+footer {
+  background-color: var(--SH-black);
+  padding: 2em 1em;
+  text-align: center;
+  animation: appear 1s 1;
+}
+
+footer .heading .logo {
+  max-width: 5em;
+  margin: 0.4em 0 -0.8em 0;
+}
+
+footer .heading .title {
+  font-size: 2.5em;
+  color: var(--SH-white);
+}
+
+footer a {
+  display: inline-block;
+  margin-top: 1.75em;
+}
+
+footer a, footer a:visited {
+  color: var(--SH-mint);
+}
+
+footer a:hover, footer a:focus {
+  color: var(--SH-white);
+}
+
+footer small {
+  color: var(--SH-dark-grey);
+  display: block;
+  margin-top: 1em;
+}
+
+/* -- RESPONSIVE STYLES -- */
+
+@media screen and (max-width: 1250px) {
+  header>* {
+    grid-column: 3/8;
+  }
+
+  @media screen and (max-width: 1024px) {
+    header {
+      background: linear-gradient(199deg, #FFFFFF 32%, rgba(255, 255, 255, 0) 70%), url(../../Images/pexels-daria-shevtsova-vertical.jpg);
+      background-position: top 0 right 0, center left 0;
+      background-size: 100%, 100%;
+      background-repeat: no-repeat;
+    }
+
+    @media screen and (max-width: 800px) {
+      header>* {
+        grid-column: 2/8;
+      }
+
+      header .subheading {
+        grid-column: 3/8;
+      }
+
+      @media screen and (max-width: 600px) {
+        header .subheading,
+        .intro>* {
+          grid-column: 2/3;
+        }
+  
+        header .heading {
+          margin-top: 1.5em;
+          font-size: 0.8em;
+        }
+  
+        header .subheading {
+          font-size: 1.7em;
+        }
+
+        @media screen and (max-width: 400px) {
+
+          header {
+            background-position: top 0 right 0, bottom 0 left 0;
+          }
+
+          header .heading {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: flex-end;
+            align-items: flex-end;
+          }
+          
+          .heading .logo {
+            flex: 0 1 7.4em;
+          }
+          
+          .heading h1 {
+            flex: 0 0 max-content;
+          }
+        }
+      }
+    }
+  }
+}

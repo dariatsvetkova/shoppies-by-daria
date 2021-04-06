@@ -1,0 +1,16 @@
+.submitted {
+  padding: 3em 0;
+  background-color: var(--SH-bright-green);
+  animation: 1s 1 appear;
+}
+
+.submitted>* {
+  grid-column: 2/8;
+  text-align: center;
+}
+
+@media screen and (max-width: 600px) {
+.submitted>* {
+    grid-column: 2/3;
+  }
+}

@@ -1,0 +1,42 @@
+.search {
+  grid-column: 2/8;
+  grid-row: 2/3;
+}
+
+.searchBar fieldset {
+  width: 100%;
+  position: relative;
+  border: 1px solid var(--SH-light-grey);
+  border-radius: 4px;
+  padding: 0;
+  margin: 1em 0 0 0;
+}
+
+.searchTextField {
+  width: 100%;
+  display: inline-block;
+  border: none;
+  padding: 1em;
+  border-radius: 4px;
+}
+
+.searchButton {
+  display: inline-block;
+  position: absolute;
+  z-index: 1;
+  right: -2px;
+  left: auto;
+  top: -1px;
+  border-radius: 0 4px 4px 0;
+  height: 102%;
+}
+
+.searchButton:active {
+  transform: none;
+}
+
+@media screen and (max-width: 600px) {
+  .search {
+    grid-column: 2/3;
+  }
+}

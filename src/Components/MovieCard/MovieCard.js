@@ -1,6 +1,9 @@
 import React from "react";
-import Placeholder from "../placeholder.png";
-import MovieInfo from "./MovieInfo";
+import Placeholder from "../../Images/placeholder.png";
+import MovieInfo from "../MovieInfo/MovieInfo";
+
+import "../global.css";
+import * as styles from "./movieCard.module.css";
 
 class MovieCard extends React.Component {
 
@@ -17,7 +20,7 @@ class MovieCard extends React.Component {
         if (this.state.viewingInfo) {
             
             // If the card is closing, trigger the animation:
-            let closedInfo = document.querySelector(".movie-info");
+            let closedInfo = document.querySelector(".movieInfo");
             closedInfo.classList.add("disappear");
 
             setTimeout(() => 
@@ -32,11 +35,12 @@ class MovieCard extends React.Component {
 
     render() {
         const { imdbID, Title, Year, Poster } = this.props.movie;
+        const classCategory = "movieCard" + this.props.category[0].toUpperCase() + this.props.category.slice(1);
 
         return (
             <li>
                 <article 
-                    className={`movie-card movie-card-${this.props.category} box`}
+                    className={`${styles.movieCard} ${styles[classCategory]} box`}
                     id={imdbID}
                 >
                     <div>
@@ -44,12 +48,12 @@ class MovieCard extends React.Component {
                             src={Poster.match(/^http|^www/) ? Poster : Placeholder}
                             alt={`${Title} movie poster`}
                         />
-                        <h4 className="movie-title">{Title} ({Year})</h4>
+                        <h4 className={styles.movieTitle}>{Title} ({Year})</h4>
                     </div>
     
-                    <div className="movie-card-buttons">
+                    <div className={styles.movieCardButtons}>
                         <button 
-                            className="info-button"
+                            className={styles.infoButton}
                             onClick={this.showInfo}
                             >
                             i
@@ -57,19 +61,18 @@ class MovieCard extends React.Component {
 
                         {this.props.category === "search" &&
                             <button 
-                            className="nominate-button"
-                            value={this.props.movie}
-                            onClick={() => this.props.nominate(this.props.movie)}
-                            disabled={this.props.disableNominate}
+                                value={this.props.movie}
+                                onClick={() => this.props.nominate(this.props.movie)}
+                                disabled={this.props.disableNominate}
                             >
                                 Nominate
                             </button>
                         }
                         {this.props.category === "nominations" &&
                             <button 
-                            className="remove-button"
-                            value={this.props.movie}
-                            onClick={() => this.props.remove(this.props.movie)}
+                                className="removeButton"
+                                value={this.props.movie}
+                                onClick={() => this.props.remove(this.props.movie)}
                             >
                                 <span className="fas fa-times"></span>
                             </button>

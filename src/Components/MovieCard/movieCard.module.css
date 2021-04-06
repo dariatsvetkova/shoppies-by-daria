@@ -1,0 +1,68 @@
+.movieCard {
+  margin: 1em 0 1em 0;
+  padding: 0.3em;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  text-align: left;
+  box-shadow: 1px 1px 5px var(--SH-light-grey);
+  transition: all 0.3s;
+}
+
+.movieCard>* {
+  margin: 0.5em;
+}
+
+.movieCard img {
+  display: inline-block;
+}
+
+.movieCard div:first-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.movieCard .movieTitle {
+  font-weight: 400;
+  font-size: 1em;
+  line-height: 1.17em;
+  padding: 0.5em;
+}
+
+.movieCardButtons {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.movieCardButtons > * {
+  flex: 0 1 auto;
+}
+
+.movieCard .infoButton {
+  margin-right: 0.5em;
+  color: var(--SH-green);
+  background-color: var(--SH-white);
+  border: 3px solid var(--SH-green);
+  font-style: italic; 
+}
+
+.movieCardSearch img {
+  max-width: 5.56em;
+}
+
+.movieCardNominations {
+  font-size: 0.75em;
+  animation: 0.3s 1 pop;
+}
+
+.movieCardNominations img {
+  max-width: 2.78em;
+}
+
+.movieCardNominations .infoButton {
+  color: var(--SH-green);
+  border: 3px solid var(--SH-green);
+}

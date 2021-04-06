@@ -1,7 +1,10 @@
 import React from "react";
-import Banner from "./Banner";
-import MovieCard from "./MovieCard";
-import animateUnmount from "./animateUnmount";
+import Banner from "../Banner/Banner";
+import MovieCard from "../MovieCard/MovieCard";
+import animateUnmount from "../animateUnmount";
+
+import "../global.css";
+import * as styles from "./nominations.module.css";
 
 const AnimatedBanner = animateUnmount(Banner);
 
@@ -42,11 +45,11 @@ class Nominations extends React.Component {
         const listLength = this.props.nominatedList.length;
 
         return (
-            <section className={`nominations ${this.state.isOpen ? "nominations-active" : ""} box`}>
-                <div className="nominations-heading">
-                    <h3>Your nominations: <span className="nominations-count">{listLength}</span></h3>
+            <section className={`${styles.nominations} ${this.state.isOpen ? styles.nominationsActive : ""} box`}>
+                <div className={styles.nominationsHeading}>
+                    <h3>Your nominations: <span className={styles.nominationsCount}>{listLength}</span></h3>
                     <button 
-                        className="dropdown-button"
+                        className={`${styles.dropdownButton} arrowButton`}
                         onClick={this.open}
                     >
                         <span className={this.state.isOpen ? "fas fa-angle-up" : "fas fa-angle-down"}></span>
@@ -60,9 +63,9 @@ class Nominations extends React.Component {
                 />
     
                 {listLength === 0 ?
-                    <p className="nominations-placeholder">No movies nominated yet</p> :
+                    <p className={styles.nominationsPlaceholder}>No movies nominated yet</p> :
     
-                    <ul className="nominated-list">
+                    <ul className={styles.nominatedList}>
                         {this.props.nominatedList.map(movie => {
                             return (
                                 <MovieCard

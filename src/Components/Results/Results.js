@@ -1,5 +1,8 @@
 import React from "react";
-import MovieCard from "./MovieCard";
+import MovieCard from "../MovieCard/MovieCard";
+
+import "../global.css";
+import * as styles from "./results.module.css";
 
 class Results extends React.Component {
 
@@ -53,7 +56,7 @@ class Results extends React.Component {
         });
 
         return (
-            <div className="search-results box">
+            <div className={`${styles.searchResults} box`}>
                 <h3>{this.props.totalResults} results found for "{this.props.searchTerm}":</h3>
                 <ul>
                     {this.props.searchResults.map(movie => {
@@ -71,7 +74,7 @@ class Results extends React.Component {
 
                     {this.props.totalResults > this.state.resultsPage * 10 &&
                         <button 
-                            className="show-more-button"
+                            className={styles.showMoreButton}
                             onClick={this.showMore}
                         >
                             Show more
@@ -80,7 +83,7 @@ class Results extends React.Component {
                 </ul>
 
                 {this.state.showToTop && 
-                    <button className="to-top-button">
+                    <button className={`${styles.toTopButton} arrowButton`}>
                         <a href="#search">
                             <span className="fas fa-angle-up"></span>
                         </a>

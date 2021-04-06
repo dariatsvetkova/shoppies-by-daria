@@ -1,9 +1,12 @@
 import React from "react";
-import Search from "./Search"; 
-import Nominations from "./Nominations";
-import Results from "./Results";
-import Loading from "./Loading";
-import SearchAlert from "./SearchAlert";
+import Search from "../Search/Search"; 
+import Nominations from "../Nominations/Nominations";
+import Results from "../Results/Results";
+import Spinner from "../Spinner/Spinner";
+import SearchAlert from "../SearchAlert/SearchAlert";
+
+import "../global.css";
+import * as styles from "./movieLists.module.css";
 
 class MovieLists extends React.Component {
 
@@ -81,13 +84,6 @@ class MovieLists extends React.Component {
 
     search(searchTerm, page, isSubmitted) {
         
-        // Trim spaces in the begining/end of the search term:
-        if (searchTerm.match(/^\s/)) {
-            searchTerm = searchTerm.slice(1,);
-        } if (searchTerm.match(/\s$/)) {
-            searchTerm = searchTerm.slice(0, searchTerm.length-1);
-        }
-
         // Trim spaces in the begining/end of the search term:
         if (searchTerm.match(/^\s/)) {
             searchTerm = searchTerm.slice(1,);
@@ -191,7 +187,7 @@ class MovieLists extends React.Component {
 
     render() {
         return (
-            <section className="movie-lists grid-container" id="search">
+            <section className={`${styles.movieLists} gridContainer`} id="search">
                 <h2>Choose your favourites</h2>
                 <Search 
                     searchTerm={this.state.searchTerm}
@@ -206,8 +202,8 @@ class MovieLists extends React.Component {
                 />
 
                 {this.state.isLoading && 
-                    <div className="search-loading box">
-                        <Loading />
+                    <div className={`${styles.searchLoading} box`}>
+                        <Spinner />
                     </div>                
                 }
 

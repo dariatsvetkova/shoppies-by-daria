@@ -1,0 +1,72 @@
+.greeting {
+  height: 100vh;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-content: center;
+  animation: descent 2.5s 1 ease-in-out;
+}
+
+@keyframes descent {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.greeting .title {
+  font-size: 4em;
+}
+
+.greeting .logo {
+  max-width: 20em;
+  margin: 0 -1em 0 -3em;
+}
+
+.greeting div {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+}
+
+.greeting p {
+  font-size: 2em;
+  font-weight: bold;
+  line-height: 2.3em;
+  letter-spacing: 0.02em;
+  line-height: 1em;
+  text-align: left;
+  margin: 0.2em 0 0.2em -0.2em;
+  padding: 0;
+  color: var(--SH-green);
+}
+
+.greeting .title {
+  font-style: italic;
+  font-weight: bold;
+  letter-spacing: -0.01em;
+}
+
+
+@media screen and (max-width: 800px) {
+  .greeting {
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .greeting p {
+    text-align: center;
+  }
+
+  .greeting .logo {
+    margin: 0;
+  }
+}

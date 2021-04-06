@@ -46,13 +46,12 @@
 // -------
 
 import React from "react";
-import "./App.css";
-import Logo from "../logo.svg"; 
-import Header from "./Header";
-import Intro from "./Intro";
-import Submitted from "./Submitted";
-import MovieLists from "./MovieLists"
-import Footer from "./Footer";
+import Greeting from "./Greeting/Greeting";
+import Layout from "./Layout/Layout";
+import Submitted from "./Submitted/Submitted";
+import MovieLists from "./MovieLists/MovieLists"
+
+import "./global.css";
 
 // Check if there are nominated movies saved in local storage:
 const checkStorage = () => {
@@ -104,33 +103,21 @@ class App extends React.Component {
     let localItems = checkStorage()
 
     return (
-      <div className="app-container">
-        {this.state.isLoading ?
-
-         <div className="greeting">
-            <img className="logo" src={Logo} alt="The Shoppies Movie Awards logo" />
-            <div>
-              <p>Welcome to</p>
-              <p className="title">The Shoppies</p>
-              <p>2021</p>
-            </div>
-          </div> :
-
-          <div className="app">
-            <Header />
-            <main>
-              <Intro />
+      <>
+        {this.state.isLoading 
+          ? <Greeting />
+          : <div className="app">
+            <Layout>
               {this.state.isSubmitted ?
                 <Submitted /> :
                 <MovieLists 
                   localItems={localItems}
                   submit={this.submit}/>
               }
-            </main>
-            <Footer />
+            </Layout>
           </div>
         }
-      </div>
+      </>
     );
   }
 }

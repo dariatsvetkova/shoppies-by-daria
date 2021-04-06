@@ -1,0 +1,109 @@
+.movieInfo {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  width: 70vw;
+  border: 5px solid var(--SH-green);
+  box-shadow: 0 0 30px var(--SH-dark-grey);
+  font-size: 1.1em;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  animation: 0.7s 1 appear;
+}
+
+.movieInfo .closeButton {
+  color: var(--SH-green);
+  justify-self: flex-start;
+  align-self: flex-end;
+}
+
+.movieDetails {
+  display: grid;
+  grid-template-columns: 2em 1fr 2fr 2em;
+  grid-template-areas:
+    ". poster title ."
+    ". poster director ."
+    ". poster info .";
+  gap: 1em;
+  text-align: left;
+  animation: 0.5s 1 appear;
+}
+
+.movieDetails img {
+  grid-area: poster;
+  max-width: 100%;
+  display: block;
+  align-self: center;
+}
+
+.movieDetails h4 {
+  grid-area: title;
+  font-size: 1.2em;
+}
+
+.movieDetails span {
+  grid-area: director;
+  font-size: 1.2em;
+  font-weight: 300;
+}
+
+.movieDetails dl {
+  grid-area: info;
+  font-size: 0.8em;
+}
+
+.movieDetails dt {
+  font-weight: 500;
+}
+
+.movieDetails dd {
+  margin-left: 0.5em;
+}
+
+@media screen and (max-width: 1250px) {
+  .movieInfo {
+    width: 80vw;
+  }
+
+  @media screen and (max-width: 1024px) {
+    .movieInfo {
+      width: 90vw;
+    }
+    
+    @media screen and (max-width: 600px) {
+      .movieInfo {
+        font-size: 1.2em;
+      }
+            
+      .movieDetails {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "poster"
+          "title"
+          "director"
+          " info";
+        gap: 0.5em;
+        align-items: center;
+        justify-items: center;
+      }
+
+      .movieDetails img {
+        max-width: 150px;
+      }
+
+      .movieDetails dl {
+        text-align: left;
+      }
+
+      @media screen and (max-width: 400px) {
+        .movieInfo {
+          padding: 1em;
+        }
+      }
+    }
+  }
+}

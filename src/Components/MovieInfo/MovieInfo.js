@@ -1,6 +1,9 @@
 import React from "react";
-import Placeholder from "../placeholder.png";
-import Loading from "./Loading";
+import Placeholder from "../../Images/placeholder.png";
+import Spinner from "../Spinner/Spinner";
+
+import "../global.css";
+import * as styles from "./movieInfo.module.css";
 
 class MovieInfo extends React.Component {
 
@@ -15,8 +18,8 @@ class MovieInfo extends React.Component {
 
     // Listen for clicks on the close button or outside of the card to close it:
     shouldClose(event) {
-        const activeItem = document.querySelector(".movie-info"),
-            closeButton = document.getElementById("close-button");
+        const activeItem = document.getElementById("movieInfo"),
+            closeButton = document.getElementById("closeButton");
 
         if (!activeItem.contains(event.target) || closeButton.contains(event.target)) {
             this.props.showInfo();
@@ -63,19 +66,19 @@ class MovieInfo extends React.Component {
         const { Title, Year, Poster, Director, Runtime, Genre, Language, Country, Actors, Plot} = this.state.movie
 
         return (
-            <div className="movie-info box">
+            <div className={`${styles.movieInfo} box`} id="movieInfo">
 
                 <button 
-                    className="close-button"
-                    id="close-button"
+                    className={`${styles.closeButton} xButton`}
+                    id="closeButton"
                     onClick={this.shouldClose}
                 >
                     <span className="fas fa-times"></span>
                 </button>
 
                 {this.state.isLoading ?
-                    <Loading /> :
-                    <div className="movie-details">
+                    <Spinner /> :
+                    <div className={styles.movieDetails}>
                         <img 
                             src={Poster.match(/^http|^www/) ? Poster : Placeholder}
                             alt={`${Title} movie poster`} 

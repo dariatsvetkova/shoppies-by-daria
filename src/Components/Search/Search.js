@@ -1,10 +1,13 @@
 import React from "react";
 
+import "../global.css";
+import * as styles from "./search.module.css";
+
 function Search(props) {
     return (
-        <section className="search">                
+        <section className={styles.search}>                
             <form 
-                className="search-bar box"
+                className={`${styles.searchBar} box`}
                 onSubmit={props.handleSubmit}
             >
                 <label>
@@ -16,6 +19,7 @@ function Search(props) {
                     <input
                         name="search-text"
                         id="search-text-field"
+                        className={styles.searchTextField}
                         placeholder="Search for the movie to nominate"
                         value={props.searchTerm}
                         onChange={props.handleChange}
@@ -23,7 +27,7 @@ function Search(props) {
                         style={{ fontSize: "1em" }}
                     />
                     <button 
-                        className="search-button"
+                        className={styles.searchButton}
                         value="Submit"
                     >
                         <span className="fas fa-search"></span>

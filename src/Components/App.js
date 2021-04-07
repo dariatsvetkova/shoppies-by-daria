@@ -1,7 +1,7 @@
 // --- APP STRUCTURE ---
 
-// App (this file) 
-//    - retrieves items from local storage, if any 
+// App (this file)
+//    - retrieves items from local storage, if any
 //    - handles final submission of nominations
 
 // a. Greeting / renders a welcome screen
@@ -10,8 +10,8 @@
 //   2. Intro / renders a piece of text
 
 //   3. Movie Lists
-//       - handles API search requests, 
-//        adding/removing nominations; 
+//       - handles API search requests,
+//        adding/removing nominations;
 //       - stores search results and nominations
 
 //    3.1. Search / renders a search bar
@@ -19,11 +19,12 @@
 
 //    3.2a. Loading / renders loading animation
 //    3.2b. Results / renders a list of movies
-//             - sends requests to Movie Lists for showing 
-//              pages 2+ of the search results; 
-//             - handles showing/hiding "back to top" button 
+//             - sends requests to Movie Lists for showing
+//              pages 2+ of the search results;
+//             - handles showing/hiding "back to top" button
 
-//     3.2b.1. Movie Card (catogory: search) / renders a card with basic movie info
+//     3.2b.1. Movie Card (catogory: search)
+//            / renders a card with basic movie info
 //               - handles opening/closing movie info card
 
 //      3.2b.1.1. Movie Info / renders an overlay with detailed movie info
@@ -40,32 +41,31 @@
 //       3.3.1.1.Movie Info
 //               - (see above)
 
-//   4. Submitted / renders a page section to replace Movie Lists after the submission
+//   4. Submitted
+//      / renders a page section to replace Movie Lists after the submission
 //   5. Footer
 
 // -------
 
-import React from "react";
-import Greeting from "./Greeting/Greeting";
-import Layout from "./Layout/Layout";
-import Submitted from "./Submitted/Submitted";
-import MovieLists from "./MovieLists/MovieLists"
+import React from 'react';
+import Greeting from './Greeting/Greeting';
+import Layout from './Layout/Layout';
+import Submitted from './Submitted/Submitted';
+import MovieLists from './MovieLists/MovieLists';
 
-import "./global.css";
+import './global.css';
 
 // Check if there are nominated movies saved in local storage:
 const checkStorage = () => {
   if (window.localStorage.length > 0) {
+    const localItems = [];
+    let ind = 0;
 
-    let localItems = [],
-        ind = 0;
-
-    for (let key in window.localStorage) {
+    for (const key in window.localStorage) {
       if (key.match(/movie-[1-5]/)) {
+        const item = localStorage.getItem(key);
 
-        let item = localStorage.getItem(key);
-
-        if (item !== "undefined") {
+        if (item !== 'undefined') {
           localItems[ind] = JSON.parse(item);
           ind++;
         }
@@ -73,50 +73,51 @@ const checkStorage = () => {
     }
     return localItems.length > 0 && localItems;
   }
-}
+};
 
 class App extends React.Component {
-
   constructor() {
     super();
     this.state = {
       isLoading: true,
-      isSubmitted: false
-    }
+      isSubmitted: false,
+    };
     this.submit = this.submit.bind(this);
   }
 
   componentDidMount() {
     // Finish the greeting animation:
-    setTimeout(() => this.setState({ isLoading: false }), 3000);
+    setTimeout(() => this.setState({isLoading: false}), 3000);
   }
 
   submit() {
     // Remove the search page once the nominations are submitted;
     // Clear local storage to make the app reusable:
-    this.setState({ isSubmitted: true });
+    this.setState({isSubmitted: true});
     localStorage.clear();
   }
 
   render() {
-
-    let localItems = checkStorage()
+    const localItems = checkStorage();
 
     return (
       <>
-        {this.state.isLoading 
-          ? <Greeting />
-          : <div className="app">
-            <Layout>
-              {this.state.isSubmitted ?
-                <Submitted /> :
-                <MovieLists 
-                  localItems={localItems}
-                  submit={this.submit}/>
-              }
-            </Layout>
-          </div>
-        }
+        {this.state.isLoading ?
+          <Greeting /> :
+          (
+            <div className="app">
+              <Layout>
+                {this.state.isSubmitted ?
+                  <Submitted /> :
+                  (
+                    <MovieLists
+                      localItems={localItems}
+                      submit={this.submit}
+                    />
+                  )}
+              </Layout>
+            </div>
+          )}
       </>
     );
   }

@@ -9,6 +9,7 @@ const MovieCard = ({
   movie,
   category,
   disableNominate,
+  nominate,
   remove,
 }) => {
   const [showInfo, setShowInfo] = useState(false);
@@ -45,9 +46,7 @@ const MovieCard = ({
             alt={`${Title} movie poster`}
           />
           <h4 className={styles.movieTitle}>
-            {Title}
-            {' '}
-            {Year}
+            {Title}{' '}({Year})
           </h4>
         </div>
 

@@ -1,100 +1,87 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import MovieCard from '../MovieCard/MovieCard';
 
 import '../global.css';
 import * as styles from './results.module.css';
 
-class Results extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      resultsPage: 1,
-      showToTop: false,
+const Results = ({
+  searchTerm,
+  searchResults,
+  totalResults,
+  nominatedList,
+  nominate,
+  search,
+  getMovieInfo,
+}) => {
+  const [page, setPage] = useState(1);
+  const [showTop, setShowTop] = useState(false);
+
+  useEffect(() => {
+    // Show the back-to-top button when
+    // the search results are scrolled past a certain point:
+    const watchScroll = () => {
+      searchBar.getBoundingClientRect().top < 0 &&
+        setShowTop(true);
+      searchBar.getBoundingClientRect().top >= 0 &&
+        setShowTop(false);
     };
-    this.showMore = this.showMore.bind(this);
-    this.watchScroll = this.watchScroll.bind(this);
-  }
 
-  // Send a search request for the next page of search results:
-  showMore() {
-    this.setState((prevState) => ({
-      resultsPage: prevState.resultsPage + 1,
-    }), () => (
-      this.props.search(this.props.searchTerm, this.state.resultsPage, false)),
-    );
-  }
-
-  // Show the back-to-top button when
-  // the search results are scrolled past a certain point:
-  watchScroll() {
     const searchBar = document.getElementById('search-text-field');
+    window.addEventListener('scroll', watchScroll, false);
+    return () => window.removeEventListener('scroll', watchScroll);
+  });
 
-    if (searchBar.getBoundingClientRect().top < -window.screen.height &&
-            this.state.showToTop === false) {
-      this.setState({showToTop: true});
-    } else if (searchBar.getBoundingClientRect().top >= -window.screen.height &&
-            this.state.showToTop === true) {
-      this.setState({showToTop: false});
-    }
-  }
+  // Get IDs of all nominated movies
+  // (prevents movies from local storage from being nominated twice):
+  const disableNominate = nominatedList.map((movie) =>
+    movie.imdbID,
+  );
 
-  componentDidMount() {
-    window.addEventListener('scroll', this.watchScroll, false);
-  }
+  return (
+    <div className={`${styles.searchResults} box`}>
+      <h3>
+        {totalResults}
+        {' '}
+        results found for &quot;
+        {searchTerm}
+        &quot;:
+      </h3>
+      <ul>
+        {searchResults.map((movie) => (
+          <MovieCard
+            key={movie.imdbID}
+            movie={movie}
+            category="search"
+            disableNominate={disableNominate.indexOf(movie.imdbID) >= 0 ||
+              nominatedList.length === 5}
+            nominate={nominate}
+            getMovieInfo={getMovieInfo}
+          />
+        ))}
 
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.watchScroll);
-  }
-
-  render() {
-    // Get IDs of all nominated movies
-    // (prevents movies from local storage from being nominated twice):
-    const disableNominate = this.props.nominatedList.map((movie) =>
-      movie.imdbID,
-    );
-
-    return (
-      <div className={`${styles.searchResults} box`}>
-        <h3>
-          {this.props.totalResults}
-          {' '}
-          results found for `&quot;`
-          {this.props.searchTerm}
-          `&quot;`:
-        </h3>
-        <ul>
-          {this.props.searchResults.map((movie) => (
-            <MovieCard
-              key={movie.imdbID}
-              movie={movie}
-              category="search"
-              disableNominate={disableNominate.indexOf(movie.imdbID) >= 0 ||
-                this.props.nominatedList.length === 5}
-              nominate={this.props.nominate}
-              getMovieInfo={this.props.getMovieInfo}
-            />
-          ))}
-
-          {this.props.totalResults > this.state.resultsPage * 10 &&
-            <button
-              className={styles.showMoreButton}
-              onClick={this.showMore}
-            >
-              Show more
-            </button>
-          }
-        </ul>
-
-        {this.state.showToTop &&
-          <button className={`${styles.toTopButton} arrowButton`}>
-            <a href="#search">
-              <span className="fas fa-angle-up" />
-            </a>
+        {totalResults > page * 10 &&
+          <button
+            className={styles.showMoreButton}
+            onClick={() => {
+              // Send a search request for the next page of search results:
+              search(searchTerm, page + 1, false);
+              return setPage(page + 1);
+            }}
+          >
+            Show more
           </button>
         }
-      </div>
-    );
-  }
-}
+      </ul>
+
+      {showTop &&
+        <button className={`${styles.toTopButton} arrowButton`}>
+          <a href="#search">
+            <span className="fas fa-angle-up" />
+          </a>
+        </button>
+      }
+    </div>
+  );
+};
 
 export default Results;

@@ -74,7 +74,7 @@ class MovieLists extends React.Component {
   }
 
   search(searchTerm, page, isSubmitted) {
-    // Trim spaces in the begining/end of the search term:
+    // Trim spaces at the begining/end of the search term:
     if (searchTerm.match(/^\s/)) {
       searchTerm = searchTerm.slice(1);
     } if (searchTerm.match(/\s$/)) {
@@ -91,8 +91,6 @@ class MovieLists extends React.Component {
       });
     }
 
-    console.log('search term: ', searchTerm);
-
     // Combine input into the url for the API request:
     const url = new URL('https://www.omdbapi.com/');
     const params = {
@@ -102,7 +100,6 @@ class MovieLists extends React.Component {
       apikey: 'b56cbf95',
       page,
     };
-
     for (const key in params) {
       if (params.hasOwnProperty.call(params, key)) {
         url.searchParams.set(key, params[key]);
@@ -111,8 +108,6 @@ class MovieLists extends React.Component {
 
     // API request:
     fetch(url)
-
-    // Retreive the API data or show error:
         .then((response) => {
           if (!response.ok) {
             this.setState({
@@ -161,8 +156,6 @@ class MovieLists extends React.Component {
                 searchResults: newResults,
                 searchAlert: '',
               });
-
-            // For search page 1, create new results:
             }
             return this.setState({
               isLoading: false,

@@ -79,7 +79,7 @@ class MovieInfo extends React.Component {
     } = this.state.movie;
 
     return (
-      <div className={`${styles.movieInfo} box`} id="movieInfo">
+      <div className={`${styles.movieInfo} box boxPop`} id="movieInfo">
 
         <button
           className={`${styles.closeButton} xButton`}

@@ -223,6 +223,15 @@ button:disabled {
   animation: disappear 0.3s 1 !important;
 }
 
+.boxPop {
+  animation: box-pop 0.3s 1 !important;
+}
+
+.boxUnpop {
+  animation: box-unpop 0.3s 1 !important;
+}
+
+
 
 
 /* -- 4. ANIMATION -- */
@@ -258,6 +267,35 @@ button:disabled {
     opacity: 0;
   }
 }
+
+@keyframes box-pop {
+  from {
+    transform: scale(0.6) translate(-60%, -60%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(1.0) translate(-50%, -50%);
+    opacity: 1;
+  }
+}
+
+@keyframes box-unpop {
+  from {
+    transform: scale(1.0)  translate(-50%, -50%);
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(0.6)  translate(-60%, -60%);
+    opacity: 0;
+  }
+}
+
 
 
 

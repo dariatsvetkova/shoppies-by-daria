@@ -61,7 +61,7 @@ const Nominations = ({
             <MovieCard
               key={movie.imdbID}
               movie={movie}
-              category="nominations"
+              category="Nominations"
               isNominated
               remove={remove}
               getMovieInfo={getMovieInfo}

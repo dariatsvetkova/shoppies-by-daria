@@ -14,25 +14,22 @@ const MovieCard = ({
 }) => {
   const [showInfo, setShowInfo] = useState(false);
 
-  // Open/close the movie info card
+  // Open/close the card with detailed movie info:
   const openInfo = () => {
     if (showInfo) {
       // If the card is closing, trigger the animation:
-      const closedInfo = document.querySelector('.movieInfo');
-      closedInfo.classList.add('disappear');
-
-      setTimeout(() => setShowInfo(false),
-          300);
+      const closedInfo = document.getElementById('movieInfo');
+      closedInfo.classList.add('boxUnpop');
+      setTimeout(() => setShowInfo(false), 300);
     } else {
       // Show the card:
       setShowInfo(true);
     }
   };
 
-  const {
-    imdbID, Title, Year, Poster,
-  } = movie;
-  const classCategory = `movieCard${category[0].toUpperCase()}${category.slice(1)}`;
+  const {imdbID, Title, Year, Poster} = movie;
+  // Set the class names based on which list the card appears in:
+  const classCategory = `movieCard${category}`;
 
   return (
     <li>
@@ -58,7 +55,7 @@ const MovieCard = ({
             i
           </button>
 
-          {category === 'search' && (
+          {category === 'Search' && (
             <button
               value={movie}
               onClick={() => nominate(movie)}
@@ -67,7 +64,7 @@ const MovieCard = ({
               Nominate
             </button>
           )}
-          {category === 'nominations' && (
+          {category === 'Nominations' && (
             <button
               className="removeButton"
               value={movie}

@@ -51,7 +51,7 @@ const Results = ({
           <MovieCard
             key={movie.imdbID}
             movie={movie}
-            category="search"
+            category="Search"
             disableNominate={disableNominate.indexOf(movie.imdbID) >= 0 ||
               nominatedList.length === 5}
             nominate={nominate}

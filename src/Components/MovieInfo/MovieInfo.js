@@ -1,40 +1,24 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Placeholder from '../../Images/placeholder.png';
 import Spinner from '../Spinner/Spinner';
 
 import '../global.css';
 import * as styles from './movieInfo.module.css';
 
-class MovieInfo extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: true,
-      movie: {},
-    };
-    this.shouldClose = this.shouldClose.bind(this);
-  }
+const MovieInfo = ({
+  imdbID,
+  Year,
+  showInfo,
+}) => {
+  const [loading, setLoading] = useState(true);
+  const [movie, setMovie] = useState({});
 
-  // Listen for clicks on the close button or outside of the card to close it:
-  shouldClose(event) {
-    const activeItem = document.getElementById('movieInfo');
-    const closeButton = document.getElementById('closeButton');
-
-    if (!activeItem.contains(event.target) ||
-      closeButton.contains(event.target)) {
-      this.props.showInfo();
-    }
-  }
-
-  componentDidMount() {
-    document.getElementById('root')
-        .addEventListener('click', this.shouldClose, false);
-
+  useEffect(() => {
     // Fetch movie details from the API:
     const url = new URL('https://www.omdbapi.com/');
     const params = {
-      i: this.props.imdbID,
-      y: this.props.Year,
+      i: imdbID,
+      y: Year,
       type: 'movie',
       r: 'json',
       apikey: 'b56cbf95',
@@ -53,87 +37,94 @@ class MovieInfo extends React.Component {
           }
           return response.json();
         })
-        .then((response) => this.setState({
-          isLoading: false,
-          movie: response,
-        }));
-  }
+        .then((response) => {
+          setMovie(response);
+          setLoading(false);
+        });
 
-  componentWillUnmount() {
-    document.getElementById('root').
-        removeEventListener('click', this.shouldClose);
-  }
+    // Listen for clicks on the close button or outside of the card to close it:
+    document.getElementById('root')
+        .addEventListener('click', shouldClose, false);
 
-  render() {
-    const {
-      Title,
-      Year,
-      Poster,
-      Director,
-      Runtime,
-      Genre,
-      Language,
-      Country,
-      Actors,
-      Plot,
-    } = this.state.movie;
+    return document.getElementById('root')
+        .removeEventListener('click', shouldClose);
+  }, []);
 
-    return (
-      <div className={`${styles.movieInfo} box boxPop`} id="movieInfo">
+  const shouldClose = (e) => {
+    const activeItem = document.getElementById('movieInfo');
+    const closeButton = document.getElementById('closeButton');
 
-        <button
-          className={`${styles.closeButton} xButton`}
-          id="closeButton"
-          onClick={this.shouldClose}
-        >
-          <span className="fas fa-times" />
-        </button>
+    if (!activeItem.contains(e.target) ||
+      closeButton.contains(e.target)) {
+      showInfo();
+    }
+  };
 
-        {this.state.isLoading ?
-          <Spinner /> :
-          (
-            <div className={styles.movieDetails}>
-              <img
-                src={Poster.match(/^http|^www/) ? Poster : Placeholder}
-                alt={`${Title} movie poster`}
-              />
-              <h4>{`${Title} (${Year})`}</h4>
-              <span>{`by ${Director}`}</span>
-              <dl>
-                <p>
-                  <dt>Runtime: </dt>
-                  <dd>{Runtime}</dd>
-                </p>
-                <p>
-                  <dt>Genre: </dt>
-                  <dd>{Genre}</dd>
-                </p>
-                <p>
-                  <dt>Language: </dt>
-                  <dd>{Language}</dd>
-                </p>
-                <p>
-                  <dt>Country: </dt>
-                  <dd>{Country}</dd>
-                </p>
-                <p>
-                  <dt>Director: </dt>
-                  <dd>{Director}</dd>
-                </p>
-                <p>
-                  <dt>Cast: </dt>
-                  <dd>{Actors}</dd>
-                </p>
-                <p>
-                  <dt>Plot: </dt>
-                  <dd>{Plot}</dd>
-                </p>
-              </dl>
-            </div>
-          )}
-      </div>
-    );
-  }
-}
+  const {
+    Title,
+    Poster,
+    Director,
+    Runtime,
+    Genre,
+    Language,
+    Country,
+    Actors,
+    Plot,
+  } = movie;
+
+  return (
+    <div className={`${styles.movieInfo} box boxPop`} id="movieInfo">
+      <button
+        className={`${styles.closeButton} xButton`}
+        id="closeButton"
+        onClick={shouldClose}
+      >
+        <span className="fas fa-times" />
+      </button>
+
+      {loading ?
+        <Spinner /> :
+        <div className={styles.movieDetails}>
+          <img
+            src={Poster.match(/^http|^www/) ? Poster : Placeholder}
+            alt={`${Title} movie poster`}
+          />
+          <h4>{`${Title} (${Year})`}</h4>
+          <span>{`by ${Director}`}</span>
+          <dl>
+            <p>
+              <dt>Runtime: </dt>
+              <dd>{Runtime}</dd>
+            </p>
+            <p>
+              <dt>Genre: </dt>
+              <dd>{Genre}</dd>
+            </p>
+            <p>
+              <dt>Language: </dt>
+              <dd>{Language}</dd>
+            </p>
+            <p>
+              <dt>Country: </dt>
+              <dd>{Country}</dd>
+            </p>
+            <p>
+              <dt>Director: </dt>
+              <dd>{Director}</dd>
+            </p>
+            <p>
+              <dt>Cast: </dt>
+              <dd>{Actors}</dd>
+            </p>
+            <p>
+              <dt>Plot: </dt>
+              <dd>{Plot}</dd>
+            </p>
+          </dl>
+        </div>
+      }
+    </div>
+  );
+};
 
 export default MovieInfo;

@@ -3,7 +3,7 @@ import React from 'react';
 import '../global.css';
 import * as styles from './search.module.css';
 
-function Search(props) {
+const Search = (props) => {
   return (
     <section className={styles.search}>
       <form
@@ -36,6 +36,6 @@ function Search(props) {
       </form>
     </section>
   );
-}
+};
 
 export default Search;

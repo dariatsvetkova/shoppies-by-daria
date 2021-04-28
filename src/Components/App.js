@@ -47,7 +47,7 @@
 
 // -------
 
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Greeting from './Greeting/Greeting';
 import Layout from './Layout/Layout';
 import Submitted from './Submitted/Submitted';
@@ -75,52 +75,42 @@ const checkStorage = () => {
   }
 };
 
-class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      isLoading: true,
-      isSubmitted: false,
-    };
-    this.submit = this.submit.bind(this);
-  }
+const App = () => {
+  const [loading, setLoading] = useState(true);
+  const [submitted, setSubmitted] = useState(false);
+  let localItems;
 
-  componentDidMount() {
+  useEffect(() => {
     // Finish the greeting animation:
-    setTimeout(() => this.setState({isLoading: false}), 3000);
-  }
+    setTimeout(() => setLoading(false), 3000);
+    localItems = checkStorage();
+  }, []);
 
-  submit() {
-    // Remove the search page once the nominations are submitted;
+  const submit = () => {
+    // Remove the search section once the nominations are submitted:
+    setSubmitted(true);
     // Clear local storage to make the app reusable:
-    this.setState({isSubmitted: true});
     localStorage.clear();
-  }
+  };
 
-  render() {
-    const localItems = checkStorage();
-
-    return (
-      <>
-        {this.state.isLoading ?
-          <Greeting /> :
-          (
-            <div className="app">
-              <Layout>
-                {this.state.isSubmitted ?
-                  <Submitted /> :
-                  (
-                    <MovieLists
-                      localItems={localItems}
-                      submit={this.submit}
-                    />
-                  )}
-              </Layout>
-            </div>
-          )}
-      </>
-    );
-  }
-}
+  return (
+    <>
+      {loading ?
+        <Greeting /> :
+        <div className="app">
+          <Layout>
+            {submitted ?
+              <Submitted /> :
+              <MovieLists
+                localItems={localItems}
+                submit={submit}
+              />
+            }
+          </Layout>
+        </div>
+      }
+    </>
+  );
+};
 
 export default App;

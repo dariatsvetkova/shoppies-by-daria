@@ -4,7 +4,6 @@
   height: 100px;
   overflow: hidden;
   background: none;
-  animation: appear 0.5s 1;
 }
 
 .spinnerBackground {

@@ -1,28 +1,25 @@
 .searchResults {
   grid-column: 2/6;
   grid-row: 3/5;
-  text-align: right;  /* Aligns the back-to-top button */ 
+  text-align: right;  /* Aligns the back-to-top button   */
   margin-bottom: 2em;
   animation: 1s 1 appear;
 }
 
-.searchResults h3 {
-  text-align: left;
-}
-
-.searchResults ul {
+.resultList {
   text-align: center;
 }
 
-.showMoreButton {
-  margin: 0.5em auto 0 auto;
+.searchResults h3,
+.searchAlert {
+  text-align: left;
 }
 
 .toTopButton {
+  z-index: 3;
   position: sticky;
   bottom: 10px;
   right: 0px;
-  z-index: 3;
   margin-right: calc(-1.75em - 5em);
   padding: 0;
 }

@@ -11,6 +11,7 @@ const MovieInfo = ({
   showInfo,
 }) => {
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [movie, setMovie] = useState({});
 
   useEffect(() => {
@@ -31,23 +32,25 @@ const MovieInfo = ({
     }
 
     fetch(url)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('Can\'t find movie info');
-          }
-          return response.json();
-        })
+        .then((response) => response.json())
         .then((response) => {
           setMovie(response);
-          setLoading(false);
-        });
+          setError('');
+        })
+        .catch(() => {
+          setError(true);
+        })
+        .finally(() => setLoading(false));
 
     // Listen for clicks on the close button or outside of the card to close it:
     document.getElementById('root')
         .addEventListener('click', shouldClose, false);
 
-    return document.getElementById('root')
-        .removeEventListener('click', shouldClose);
+    return () => {
+      console.log('removing listener');
+      document.getElementById('root')
+          .removeEventListener('click', shouldClose);
+    };
   }, []);
 
   const shouldClose = (e) => {
@@ -85,42 +88,47 @@ const MovieInfo = ({
       {loading ?
         <Spinner /> :
         <div className={styles.movieDetails}>
-          <img
-            src={Poster.match(/^http|^www/) ? Poster : Placeholder}
-            alt={`${Title} movie poster`}
-          />
-          <h4>{`${Title} (${Year})`}</h4>
-          <span>{`by ${Director}`}</span>
-          <dl>
-            <p>
-              <dt>Runtime: </dt>
-              <dd>{Runtime}</dd>
-            </p>
-            <p>
-              <dt>Genre: </dt>
-              <dd>{Genre}</dd>
-            </p>
-            <p>
-              <dt>Language: </dt>
-              <dd>{Language}</dd>
-            </p>
-            <p>
-              <dt>Country: </dt>
-              <dd>{Country}</dd>
-            </p>
-            <p>
-              <dt>Director: </dt>
-              <dd>{Director}</dd>
-            </p>
-            <p>
-              <dt>Cast: </dt>
-              <dd>{Actors}</dd>
-            </p>
-            <p>
-              <dt>Plot: </dt>
-              <dd>{Plot}</dd>
-            </p>
-          </dl>
+          {error ?
+            <p>Can&apos;t find movie info</p> :
+            <>
+              <img
+                src={Poster.match(/^http|^www/) ? Poster : Placeholder}
+                alt={`${Title} movie poster`}
+              />
+              <h4>{`${Title} (${Year})`}</h4>
+              <span>{`by ${Director}`}</span>
+              <dl>
+                <p>
+                  <dt>Runtime: </dt>
+                  <dd>{Runtime}</dd>
+                </p>
+                <p>
+                  <dt>Genre: </dt>
+                  <dd>{Genre}</dd>
+                </p>
+                <p>
+                  <dt>Language: </dt>
+                  <dd>{Language}</dd>
+                </p>
+                <p>
+                  <dt>Country: </dt>
+                  <dd>{Country}</dd>
+                </p>
+                <p>
+                  <dt>Director: </dt>
+                  <dd>{Director}</dd>
+                </p>
+                <p>
+                  <dt>Cast: </dt>
+                  <dd>{Actors}</dd>
+                </p>
+                <p>
+                  <dt>Plot: </dt>
+                  <dd>{Plot}</dd>
+                </p>
+              </dl>
+            </>
+          }
         </div>
       }
     </div>

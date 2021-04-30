@@ -6,16 +6,20 @@
 .searchBar fieldset {
   width: 100%;
   position: relative;
-  border: 1px solid var(--SH-light-grey);
-  border-radius: 4px;
   padding: 0;
   margin: 1em 0 0 0;
+  border: none;
+}
+
+.searchBar legend {
+  position: relative;
+  top: -1em;
 }
 
 .searchTextField {
   width: 100%;
   display: inline-block;
-  border: none;
+  border: 1px solid var(--SH-light-grey);
   padding: 1em;
   border-radius: 4px;
 }

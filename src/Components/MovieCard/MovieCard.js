@@ -27,6 +27,13 @@ const MovieCard = ({
     }
   };
 
+  const handleRemove = () => {
+    // Trigger the animation on the removed element:
+    const removedElem = document.getElementById(`Nominations-${movie.imdbID}`);
+    removedElem.classList.add('unpop');
+    setTimeout(props.remove(movie), 300);
+  };
+
   const {imdbID, Title, Year, Poster} = movie;
   // Set the class names based on which list the card appears in:
   const classCategory = `movieCard${category}`;
@@ -35,7 +42,7 @@ const MovieCard = ({
     <li>
       <article
         className={`${styles.movieCard} ${styles[classCategory]} box`}
-        id={imdbID}
+        id={`${category}-${imdbID}`}
       >
         <div>
           <img
@@ -68,7 +75,7 @@ const MovieCard = ({
             <button
               className="removeButton"
               value={movie}
-              onClick={() => remove(movie)}
+              onClick={handleRemove}
             >
               <span className="fas fa-times" />
             </button>

@@ -55,35 +55,13 @@ import MovieLists from './MovieLists/MovieLists';
 
 import './global.css';
 
-// Check if there are nominated movies saved in local storage:
-const checkStorage = () => {
-  if (window.localStorage.length > 0) {
-    const localItems = [];
-    let ind = 0;
-
-    for (const key in window.localStorage) {
-      if (key.match(/movie-[1-5]/)) {
-        const item = localStorage.getItem(key);
-
-        if (item !== 'undefined') {
-          localItems[ind] = JSON.parse(item);
-          ind++;
-        }
-      }
-    }
-    return localItems.length > 0 && localItems;
-  }
-};
-
 const App = () => {
   const [loading, setLoading] = useState(true);
   const [submitted, setSubmitted] = useState(false);
-  let localItems;
 
   useEffect(() => {
     // Finish the greeting animation:
     setTimeout(() => setLoading(false), 3000);
-    localItems = checkStorage();
   }, []);
 
   const submit = () => {
@@ -102,7 +80,6 @@ const App = () => {
             {submitted ?
               <Submitted /> :
               <MovieLists
-                localItems={localItems}
                 submit={submit}
               />
             }

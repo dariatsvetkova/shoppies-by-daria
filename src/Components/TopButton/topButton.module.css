@@ -1,0 +1,17 @@
+.toTopButton {
+  z-index: 3;
+  position: sticky;
+  bottom: 10px;
+  right: 0px;
+  margin: -2em calc(-1.75em - 5em) -2em 0;
+  padding: 0;
+}
+
+.toTopButton a {
+  display: inline-block;
+  padding: 15px 20px;
+}
+
+.toTopButton a:visited {
+  color: var(--SH-green);
+}

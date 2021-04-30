@@ -1,9 +1,9 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import search from '../../Functions/search';
-import cleanSearchTerm from '../../Functions/cleanSearchTerm';
 
 import Spinner from '../Spinner/Spinner';
 import MovieCard from '../MovieCard/MovieCard';
+import TopButton from '../TopButton/TopButton';
 
 import '../global.css';
 import * as styles from './results.module.css';
@@ -15,81 +15,73 @@ const Results = ({
   nominate,
   getMovieInfo,
 }) => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [results, setResults] = useState([]);
-  const [totalResults, setTotalResults] = useState(null);
+  const [totalResults, setTotal] = useState(null);
+  const [error, setError] = useState('');
   const [page, setPage] = useState(1);
-  const [alert, setAlert] = useState('');
 
-  // Store/access previous search term:
-  const usePrev = (value) => {
-    const prev = useRef();
-    useEffect(() => {
-      prev.current = value;
-    });
-    return prev.current;
-  };
-
-  const prevSearch = usePrev(searchTerm);
-
-  useEffect(() => {
+  const handleSearch = () => {
     setLoading(true);
-    searchTerm !== prevSearch && setPage(1);
-
-    // Remove unwanted characters and trailing spaces from search query:
-    const query = cleanSearchTerm(searchTerm);
-
-    // Reset the state if the input field has been emptied:
-    const emptyResults = () => {
-      setLoading(false);
-      setResults([]);
-      setTotalResults(0);
-    };
-
-    if (query === '') {
-      emptyResults();
-      setAlert('');
-    } else {
-      // Make the API request:
-      search(query, page, submitted)
-          .then((data) => {
-            setLoading(false);
-            setTotalResults(data.totalResults);
-            setAlert(data.searchAlert);
+    // Retrieve data from the API:
+    search(searchTerm, page)
+        .then((data) => {
+          setTotal(data.totalResults);
+          setError(data.error);
 
           // Since the API returns 10 results per page,
-          // for search pages 2+, add the results to the existing list:
-          page > 1 ?
-          setResults([...results, ...data.searchResults]) :
-          setResults(data.searchResults);
-          })
-          .catch(() => {
-            emptyResults();
-            setAlert('Something went wrong. Please try again later.');
+          // for pages 2+, add the results to the existing list:
+          const newResults = page > 1 ?
+          [...results, ...data.searchResults] :
+          data.searchResults;
+
+          // Filter out occasionally occuring repeated movies with the same id:
+          const filteredResults = newResults.filter((movie, index, self) => {
+            return index === self.findIndex((m) =>
+              m.imdbID === movie.imdbID && m.Title === movie.Title);
           });
-    }
-  }, [searchTerm, page, submitted]);
+          setResults(filteredResults);
+        })
+        .catch(() => {
+          setResults([]);
+          setTotal(0);
+          setError('Can\'t connect');
+        })
+        .finally(() => setLoading(false));
+  };
 
-  const [showTop, setShowTop] = useState(false);
-
+  // If a search term updates, reset the results' page number:
   useEffect(() => {
-    // Listen for page scroll and show the back-to-top button:
-    const watchScroll = () => {
-      searchBar.getBoundingClientRect().top < 0 &&
-      setShowTop(true);
-      searchBar.getBoundingClientRect().top >= 0 &&
-      setShowTop(false);
-    };
-    const searchBar = document.getElementById('search-text-field');
-    window.addEventListener('scroll', watchScroll, false);
-    return () => window.removeEventListener('scroll', watchScroll);
-  });
+    setPage(1);
+    handleSearch(searchTerm, 1);
+  }, [searchTerm]);
+
+  // If the page number updates, request another page for the same search term:
+  useEffect(() => {
+    handleSearch(searchTerm, page);
+  }, [page]);
 
   // Get IDs of all nominated movies
   // (prevents movies from local storage from being nominated twice):
   const disableNominate = nominatedList.map((movie) =>
     movie.imdbID,
   );
+
+  // Set the error message based on the type of error:
+  let alert = '';
+  if (error.length > 0) {
+    if (error === 'Too many results.') {
+      // Since this error is returned for search terms <= 2 letters,
+      // only show this alert after the user tries to submit the form:
+      alert = submitted ?
+        'Too many results. Try to narrow your search.':
+        '';
+    } else if (error === 'Movie not found!') {
+      alert = `Can't find "${searchTerm}". Try searching for something else.`;
+    } else {
+      alert = error;
+    }
+  }
 
   return (
     <div className={`${styles.searchResults} box`}>
@@ -134,13 +126,7 @@ const Results = ({
           }
         </div>
       }
-      {showTop &&
-        <button className={`${styles.toTopButton} arrowButton`}>
-          <a href="#search">
-            <span className="fas fa-angle-up" />
-          </a>
-        </button>
-      }
+      <TopButton />
     </div>
   );
 };

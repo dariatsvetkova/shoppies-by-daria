@@ -66,9 +66,10 @@ const App = () => {
 
   const submit = () => {
     // Remove the search section once the nominations are submitted:
-    setSubmitted(true);
-    // Clear local storage to make the app reusable:
+    setSubmitted(true); // Add social buttons here
+    // Clear local storage to make the app reusable for testing purposes:
     localStorage.clear();
+    console.log('localStorage after submitting: ', localStorage);
   };
 
   return (
@@ -79,9 +80,7 @@ const App = () => {
           <Layout>
             {submitted ?
               <Submitted /> :
-              <MovieLists
-                submit={submit}
-              />
+              <MovieLists submit={submit} />
             }
           </Layout>
         </div>

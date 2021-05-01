@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import Banner from '../Banner/Banner';
 import MovieCard from '../MovieCard/MovieCard';
 
@@ -9,29 +9,18 @@ const Nominations = ({
   nominatedList,
   submit,
   remove,
-  getMovieInfo,
 }) => {
+  // Open/close the drop-down list on mobile:
   const [open, setOpen] = useState(false);
-
-  // Update items in the local storage based on new props
-  useEffect(() => {
-    console.log('updating local storage');
-    for (let i = 0; i < 5; i++) {
-      if (nominatedList[i]) {
-        localStorage.setItem(
-            `movie-${i + 1}`,
-            JSON.stringify(nominatedList[i]),
-        );
-      } else {
-        localStorage.removeItem(`movie-${i + 1}`);
-      }
-    }
-  }, [nominatedList]);
 
   const listLength = nominatedList.length;
 
   return (
-    <section className={`${styles.nominations} ${open ? styles.nominationsActive : ''} box`}>
+    <section className={`
+      ${styles.nominations} 
+      ${open ? styles.nominationsActive : ''} 
+      box`
+    }>
       <div className={styles.nominationsHeading}>
         <h3>
           Your nominations:
@@ -57,16 +46,16 @@ const Nominations = ({
         </p> :
 
         <ul className={styles.nominatedList}>
-          {nominatedList.map((movie) => (
-            <MovieCard
-              key={movie.imdbID}
-              movie={movie}
-              category="Nominations"
-              isNominated
-              remove={remove}
-              getMovieInfo={getMovieInfo}
-            />
-          ))}
+          {nominatedList.map((movie) => {
+            return (
+              <MovieCard
+                key={`Nominations-${movie.imdbID}`}
+                movie={movie}
+                category="Nominations"
+                remove={remove}
+              />
+            );
+          })}
         </ul>
       }
     </section>

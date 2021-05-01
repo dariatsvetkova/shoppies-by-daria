@@ -4,7 +4,6 @@ import '../global.css';
 import * as styles from './topButton.module.css';
 
 const TopButton = () => {
-  console.log('rendering to-top button');
   return (
     <button className={`${styles.toTopButton} arrowButton`}>
       <a href="#search">

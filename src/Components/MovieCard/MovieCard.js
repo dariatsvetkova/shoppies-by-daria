@@ -30,10 +30,10 @@ const MovieCard = ({
   // Remove the movie from the list of nominees:
   const movieCard = useRef(null);
 
-  const handleRemove = () => {
+  const handleRemove = (movie) => {
     // Trigger the animation on the removed element:
     movieCard.current.classList.add('unpop');
-    setTimeout(remove(movie), 300);
+    setTimeout(() => remove(movie), 300);
   };
 
   const {imdbID, Title, Year, Poster} = movie;
@@ -66,7 +66,6 @@ const MovieCard = ({
 
           {category === 'Search' && (
             <button
-              value={movie}
               onClick={() => nominate(movie)}
               disabled={disableNominate}
             >
@@ -76,8 +75,7 @@ const MovieCard = ({
           {category === 'Nominations' && (
             <button
               className="removeButton"
-              value={movie}
-              onClick={handleRemove}
+              onClick={() => handleRemove(movie)}
             >
               <span className="fas fa-times" />
             </button>

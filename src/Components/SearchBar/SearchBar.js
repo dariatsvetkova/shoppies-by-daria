@@ -72,8 +72,8 @@ const Search = (props) => {
           <Results
             searchTerm={searchTerm}
             submitted={submitted}
-            nominate={props.nominate}
             nominatedList={props.nominatedList}
+            nominate={props.nominate}
           />
           {showTop && <TopButton />}
         </>

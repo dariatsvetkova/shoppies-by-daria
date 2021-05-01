@@ -5,11 +5,12 @@ import Nominations from '../Nominations/Nominations';
 import '../global.css';
 import * as styles from './movieLists.module.css';
 
-const MovieLists = (props) => {
-  const [nominatedList, setNominatedList] = useState([]);
+const MovieLists = ({submit}) => {
+  const [nominatedList, setNominated] = useState([]);
 
   useEffect(() => {
-    // If there are items from local storage, use them to set nominations:
+    // If there are items in local storage from before,
+    // use them to set nominations:
     if (window.localStorage.length > 0) {
       const localItems = [];
 
@@ -20,18 +21,42 @@ const MovieLists = (props) => {
             localItems.push(JSON.parse(item));
         }
       }
-      localItems.length > 0 && setNominatedList(localItems);
+      localItems.length > 0 && setNominated(localItems);
     }
   }, []);
 
-  const nominate = (movie) => setNominatedList([...nominatedList, movie]);
+  // Add a movie to the list of nominations:
+  const nominate = (movie) => {
+    const newList = [...nominatedList, movie];
+    updateLocal(newList);
+    return setNominated([...newList]);
+  };
 
+  // Remove a movie from the list of nominations:
   const remove = (movie) => {
-    // Remove the element from the list of nominations
-    const ind = nominatedList.indexOf(movie);
-    const newNominated = nominatedList;
-    newNominated.splice(ind, 1);
-    return setNominatedList(newNominated);
+    const ind = nominatedList.findIndex((m) =>
+      m.imdbID === movie.imdbID && m.Title === movie.Title,
+    );
+
+    const newList = nominatedList;
+    newList.splice(ind, 1);
+
+    updateLocal(newList);
+    return setNominated([...newList]);
+  };
+
+  // Update local storage whenever there is a change in nominations:
+  const updateLocal = (list) => {
+    for (let i = 0; i < 5; i++) {
+      if (list[i]) {
+        localStorage.setItem(
+            `movie-${i + 1}`,
+            JSON.stringify(list[i]),
+        );
+      } else {
+        localStorage.removeItem(`movie-${i + 1}`);
+      }
+    }
   };
 
   return (
@@ -44,7 +69,7 @@ const MovieLists = (props) => {
       <Nominations
         nominatedList={nominatedList}
         remove={remove}
-        submit={props.submit}
+        submit={submit}
       />
     </section>
   );

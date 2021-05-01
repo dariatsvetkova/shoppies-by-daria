@@ -12,7 +12,6 @@ const Results = ({
   submitted,
   nominatedList,
   nominate,
-  getMovieInfo,
 }) => {
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState([]);
@@ -102,7 +101,7 @@ const Results = ({
           <ul>
             {results.map((movie) =>
               <MovieCard
-                key={movie.imdbID}
+                key={`Search-${movie.imdbID}`}
                 movie={movie}
                 category="Search"
                 disableNominate={
@@ -110,7 +109,6 @@ const Results = ({
                   nominatedList.length === 5
                 }
                 nominate={nominate}
-                getMovieInfo={getMovieInfo}
               />,
             )}
           </ul>

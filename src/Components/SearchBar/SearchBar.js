@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import Results from '../Results/Results';
+import TopButton from '../TopButton/TopButton';
 
 import '../global.css';
 import * as styles from './searchBar.module.css';
@@ -14,10 +15,25 @@ const Search = (props) => {
   };
 
   const handleSubmit = (e) => {
-    // Force the search alert to show if there are no search results:
     e.preventDefault();
+    // Force the search alert to show if there are no search results:
     setSubmitted(true);
   };
+
+  // Listen for page scroll and show the back-to-top button:
+  const [showTop, setShowTop] = useState(false);
+  const searchBar = useRef(null);
+
+  useEffect(() => {
+    const watchScroll = () => {
+      searchBar.current.getBoundingClientRect().top < 0 &&
+        setShowTop(true);
+      searchBar.current.getBoundingClientRect().top >= 0 &&
+        setShowTop(false);
+    };
+    window.addEventListener('scroll', watchScroll, false);
+    return () => window.removeEventListener('scroll', watchScroll);
+  });
 
   return (
     <>
@@ -25,6 +41,7 @@ const Search = (props) => {
         <form
           className={`${styles.searchBar} box`}
           onSubmit={handleSubmit}
+          ref={searchBar}
         >
           <fieldset>
             <legend>
@@ -34,7 +51,6 @@ const Search = (props) => {
             </legend>
             <input
               name="search-text"
-              id="search-text-field"
               className={styles.searchTextField}
               placeholder="Search for the movie to nominate"
               value={searchTerm}
@@ -52,12 +68,15 @@ const Search = (props) => {
         </form>
       </section>
       {searchTerm.length > 0 &&
-        <Results
-          searchTerm={searchTerm}
-          submitted={submitted}
-          nominate={props.nominate}
-          nominatedList={props.nominatedList}
-        />
+        <>
+          <Results
+            searchTerm={searchTerm}
+            submitted={submitted}
+            nominate={props.nominate}
+            nominatedList={props.nominatedList}
+          />
+          {showTop && <TopButton />}
+        </>
       }
     </>
   );

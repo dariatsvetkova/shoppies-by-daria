@@ -215,8 +215,16 @@ button:disabled {
   border: 3px solid var(--SH-green);
 }
 
+.pop {
+  animation: pop 0.3s 1 !important;
+}
+
 .unpop {
   animation: unpop 0.3s 1 !important;
+}
+
+.appear {
+  animation: appear 0.3s 1 !important;
 }
 
 .disappear {

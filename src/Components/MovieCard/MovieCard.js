@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import Placeholder from '../../Images/placeholder.png';
 import MovieInfo from '../MovieInfo/MovieInfo';
 
@@ -15,23 +15,25 @@ const MovieCard = ({
   const [showInfo, setShowInfo] = useState(false);
 
   // Open/close the card with detailed movie info:
-  const openInfo = () => {
+  const movieInfoRef = useRef(null);
+
+  const toggleInfo = () => {
     if (showInfo) {
       // If the card is closing, trigger the animation:
-      const closedInfo = document.getElementById('movieInfo');
-      closedInfo.classList.add('boxUnpop');
+      movieInfoRef.current.classList.add('boxUnpop');
       setTimeout(() => setShowInfo(false), 300);
     } else {
-      // Show the card:
       setShowInfo(true);
     }
   };
 
+  // Remove the movie from the list of nominees:
+  const movieCard = useRef(null);
+
   const handleRemove = () => {
     // Trigger the animation on the removed element:
-    const removedElem = document.getElementById(`Nominations-${movie.imdbID}`);
-    removedElem.classList.add('unpop');
-    setTimeout(props.remove(movie), 300);
+    movieCard.current.classList.add('unpop');
+    setTimeout(remove(movie), 300);
   };
 
   const {imdbID, Title, Year, Poster} = movie;
@@ -39,11 +41,11 @@ const MovieCard = ({
   const classCategory = `movieCard${category}`;
 
   return (
-    <li>
-      <article
-        className={`${styles.movieCard} ${styles[classCategory]} box`}
-        id={`${category}-${imdbID}`}
-      >
+    <li
+      className={category === 'Nominations' ? 'pop' : 'appear'}
+      ref={movieCard}
+    >
+      <article className={`${styles.movieCard} ${styles[classCategory]} box`}>
         <div>
           <img
             src={Poster.match(/^http|^www/) ? Poster : Placeholder}
@@ -57,7 +59,7 @@ const MovieCard = ({
         <div className={styles.movieCardButtons}>
           <button
             className={styles.infoButton}
-            onClick={openInfo}
+            onClick={toggleInfo}
           >
             i
           </button>
@@ -85,9 +87,10 @@ const MovieCard = ({
 
       {showInfo &&
         <MovieInfo
+          ref={movieInfoRef}
           imdbID={imdbID}
           Year={Year}
-          showInfo={openInfo}
+          close={toggleInfo}
         />
       }
     </li>

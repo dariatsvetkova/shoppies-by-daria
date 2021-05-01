@@ -1,10 +1,13 @@
-.movieInfo {
+.movieInfoWrapper {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 5;
   width: 70vw;
+}
+
+.movieInfo {
   border: 5px solid var(--SH-green);
   box-shadow: 0 0 30px var(--SH-dark-grey);
   font-size: 1.1em;
@@ -12,7 +15,6 @@
   flex-flow: column nowrap;
   align-items: center;
   justify-content: center;
-  animation: 0.7s 1 appear;
 }
 
 .movieInfo .closeButton {

@@ -1,15 +1,15 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef, forwardRef} from 'react';
 import Placeholder from '../../Images/placeholder.png';
 import Spinner from '../Spinner/Spinner';
 
 import '../global.css';
 import * as styles from './movieInfo.module.css';
 
-const MovieInfo = ({
+const MovieInfo = forwardRef(({
   imdbID,
   Year,
-  showInfo,
-}) => {
+  close,
+}, ref) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [movie, setMovie] = useState({});
@@ -56,77 +56,83 @@ const MovieInfo = ({
   } = movie;
 
   // Listen for clicks on the close button or outside of the card to close it:
-  const shouldClose = (e) => {
-    const activeItem = document.getElementById('movieInfo');
-    const closeButton = document.getElementById('closeButton');
+  const movieInfo = useRef(null);
+  const closeButton = useRef(null);
 
-    if (!activeItem.contains(e.target) ||
-      closeButton.contains(e.target)) {
-      showInfo();
+  const shouldClose = (e) => {
+    if (!movieInfo.current.contains(e.target) ||
+      closeButton.current.contains(e.target)) {
+      close();
     }
   };
 
   useEffect(() => {
-    document.getElementById('root')
-        .addEventListener('click', shouldClose, false);
-    return () => document.getElementById('root')
-        .removeEventListener('click', shouldClose);
+    document.addEventListener('click', shouldClose, false);
+    return () => document.removeEventListener('click', shouldClose);
   }, []);
 
   return (
-    <div className={`${styles.movieInfo} box boxPop`} id="movieInfo">
-      <button
-        className={`${styles.closeButton} xButton`}
-        id="closeButton"
-        onClick={shouldClose}
+    <div
+      className={`${styles.movieInfoWrapper} boxPop`}
+      ref={ref}
+    >
+      <div
+        className={`${styles.movieInfo} box`}
+        ref={movieInfo}
       >
-        <span className="fas fa-times" />
-      </button>
+        <button
+          className={`${styles.closeButton} xButton`}
+          ref={closeButton}
+          onClick={shouldClose}
+        >
+          <span className="fas fa-times" />
+        </button>
 
-      {loading && <Spinner />}
-      {error && <p>Can&apos;t find movie info</p>}
-      {Title &&
-        <div className={styles.movieDetails}>
-          <img
-            src={Poster.match(/^http|^www/) ? Poster : Placeholder}
-            alt={`${Title} movie poster`}
-          />
-          <h4>{`${Title} (${Year})`}</h4>
-          <span>{`by ${Director}`}</span>
-          <dl>
-            <p>
-              <dt>Runtime: </dt>
-              <dd>{Runtime}</dd>
-            </p>
-            <p>
-              <dt>Genre: </dt>
-              <dd>{Genre}</dd>
-            </p>
-            <p>
-              <dt>Language: </dt>
-              <dd>{Language}</dd>
-            </p>
-            <p>
-              <dt>Country: </dt>
-              <dd>{Country}</dd>
-            </p>
-            <p>
-              <dt>Director: </dt>
-              <dd>{Director}</dd>
-            </p>
-            <p>
-              <dt>Cast: </dt>
-              <dd>{Actors}</dd>
-            </p>
-            <p>
-              <dt>Plot: </dt>
-              <dd>{Plot}</dd>
-            </p>
-          </dl>
-        </div>
-      }
+        {loading && <Spinner />}
+        {error && <p>Can&apos;t find movie info</p>}
+        {Title &&
+          <div className={styles.movieDetails}>
+            <img
+              src={Poster.match(/^http|^www/) ? Poster : Placeholder}
+              alt={`${Title} movie poster`}
+            />
+            <h4>{`${Title} (${Year})`}</h4>
+            <span>{`by ${Director}`}</span>
+            <dl>
+              <p>
+                <dt>Runtime: </dt>
+                <dd>{Runtime}</dd>
+              </p>
+              <p>
+                <dt>Genre: </dt>
+                <dd>{Genre}</dd>
+              </p>
+              <p>
+                <dt>Language: </dt>
+                <dd>{Language}</dd>
+              </p>
+              <p>
+                <dt>Country: </dt>
+                <dd>{Country}</dd>
+              </p>
+              <p>
+                <dt>Director: </dt>
+                <dd>{Director}</dd>
+              </p>
+              <p>
+                <dt>Cast: </dt>
+                <dd>{Actors}</dd>
+              </p>
+              <p>
+                <dt>Plot: </dt>
+                <dd>{Plot}</dd>
+              </p>
+            </dl>
+          </div>
+        }
+      </div>
     </div>
   );
-};
+});
 
 export default MovieInfo;

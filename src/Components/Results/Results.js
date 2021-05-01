@@ -3,7 +3,6 @@ import search from '../../Functions/search';
 
 import Spinner from '../Spinner/Spinner';
 import MovieCard from '../MovieCard/MovieCard';
-import TopButton from '../TopButton/TopButton';
 
 import '../global.css';
 import * as styles from './results.module.css';
@@ -126,7 +125,6 @@ const Results = ({
           }
         </div>
       }
-      <TopButton />
     </div>
   );
 };

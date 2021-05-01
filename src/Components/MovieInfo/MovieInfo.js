@@ -14,8 +14,8 @@ const MovieInfo = ({
   const [error, setError] = useState(false);
   const [movie, setMovie] = useState({});
 
+  // Fetch movie details from the API:
   useEffect(() => {
-    // Fetch movie details from the API:
     const url = new URL('https://www.omdbapi.com/');
     const params = {
       i: imdbID,
@@ -41,27 +41,7 @@ const MovieInfo = ({
           setError(true);
         })
         .finally(() => setLoading(false));
-
-    // Listen for clicks on the close button or outside of the card to close it:
-    document.getElementById('root')
-        .addEventListener('click', shouldClose, false);
-
-    return () => {
-      console.log('removing listener');
-      document.getElementById('root')
-          .removeEventListener('click', shouldClose);
-    };
-  }, []);
-
-  const shouldClose = (e) => {
-    const activeItem = document.getElementById('movieInfo');
-    const closeButton = document.getElementById('closeButton');
-
-    if (!activeItem.contains(e.target) ||
-      closeButton.contains(e.target)) {
-      showInfo();
-    }
-  };
+  });
 
   const {
     Title,
@@ -75,6 +55,24 @@ const MovieInfo = ({
     Plot,
   } = movie;
 
+  // Listen for clicks on the close button or outside of the card to close it:
+  const shouldClose = (e) => {
+    const activeItem = document.getElementById('movieInfo');
+    const closeButton = document.getElementById('closeButton');
+
+    if (!activeItem.contains(e.target) ||
+      closeButton.contains(e.target)) {
+      showInfo();
+    }
+  };
+
+  useEffect(() => {
+    document.getElementById('root')
+        .addEventListener('click', shouldClose, false);
+    return () => document.getElementById('root')
+        .removeEventListener('click', shouldClose);
+  }, []);
+
   return (
     <div className={`${styles.movieInfo} box boxPop`} id="movieInfo">
       <button
@@ -85,50 +83,46 @@ const MovieInfo = ({
         <span className="fas fa-times" />
       </button>
 
-      {loading ?
-        <Spinner /> :
+      {loading && <Spinner />}
+      {error && <p>Can&apos;t find movie info</p>}
+      {Title &&
         <div className={styles.movieDetails}>
-          {error ?
-            <p>Can&apos;t find movie info</p> :
-            <>
-              <img
-                src={Poster.match(/^http|^www/) ? Poster : Placeholder}
-                alt={`${Title} movie poster`}
-              />
-              <h4>{`${Title} (${Year})`}</h4>
-              <span>{`by ${Director}`}</span>
-              <dl>
-                <p>
-                  <dt>Runtime: </dt>
-                  <dd>{Runtime}</dd>
-                </p>
-                <p>
-                  <dt>Genre: </dt>
-                  <dd>{Genre}</dd>
-                </p>
-                <p>
-                  <dt>Language: </dt>
-                  <dd>{Language}</dd>
-                </p>
-                <p>
-                  <dt>Country: </dt>
-                  <dd>{Country}</dd>
-                </p>
-                <p>
-                  <dt>Director: </dt>
-                  <dd>{Director}</dd>
-                </p>
-                <p>
-                  <dt>Cast: </dt>
-                  <dd>{Actors}</dd>
-                </p>
-                <p>
-                  <dt>Plot: </dt>
-                  <dd>{Plot}</dd>
-                </p>
-              </dl>
-            </>
-          }
+          <img
+            src={Poster.match(/^http|^www/) ? Poster : Placeholder}
+            alt={`${Title} movie poster`}
+          />
+          <h4>{`${Title} (${Year})`}</h4>
+          <span>{`by ${Director}`}</span>
+          <dl>
+            <p>
+              <dt>Runtime: </dt>
+              <dd>{Runtime}</dd>
+            </p>
+            <p>
+              <dt>Genre: </dt>
+              <dd>{Genre}</dd>
+            </p>
+            <p>
+              <dt>Language: </dt>
+              <dd>{Language}</dd>
+            </p>
+            <p>
+              <dt>Country: </dt>
+              <dd>{Country}</dd>
+            </p>
+            <p>
+              <dt>Director: </dt>
+              <dd>{Director}</dd>
+            </p>
+            <p>
+              <dt>Cast: </dt>
+              <dd>{Actors}</dd>
+            </p>
+            <p>
+              <dt>Plot: </dt>
+              <dd>{Plot}</dd>
+            </p>
+          </dl>
         </div>
       }
     </div>

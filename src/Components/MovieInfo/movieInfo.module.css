@@ -17,7 +17,6 @@
 
 .movieInfo .closeButton {
   color: var(--SH-green);
-  justify-self: flex-start;
   align-self: flex-end;
 }
 
@@ -30,7 +29,6 @@
     ". poster info .";
   gap: 1em;
   text-align: left;
-  animation: 0.5s 1 appear;
 }
 
 .movieDetails img {

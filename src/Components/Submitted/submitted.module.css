@@ -9,6 +9,11 @@
   text-align: center;
 }
 
+.socialButton {
+  margin: 1em;
+  padding: 0;
+}
+
 @media screen and (max-width: 600px) {
 .submitted>* {
     grid-column: 2/3;

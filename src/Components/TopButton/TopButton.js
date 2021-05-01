@@ -1,13 +1,14 @@
 import React from 'react';
+import {FaAngleUp} from 'react-icons/fa';
 
 import '../global.css';
 import * as styles from './topButton.module.css';
 
 const TopButton = () => {
   return (
-    <button className={`${styles.toTopButton} arrowButton`}>
+    <button className={`${styles.toTopButton} iconButton`}>
       <a href="#search">
-        <span className="fas fa-angle-up" />
+        <FaAngleUp />
       </a>
     </button>
   );

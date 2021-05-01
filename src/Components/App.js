@@ -66,10 +66,9 @@ const App = () => {
 
   const submit = () => {
     // Remove the search section once the nominations are submitted:
-    setSubmitted(true); // Add social buttons here
+    setSubmitted(true);
     // Clear local storage to make the app reusable for testing purposes:
     localStorage.clear();
-    console.log('localStorage after submitting: ', localStorage);
   };
 
   return (

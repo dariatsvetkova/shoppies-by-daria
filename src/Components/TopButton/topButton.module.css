@@ -10,15 +10,6 @@
   padding: 0;
 }
 
-.toTopButton a {
-  display: inline-block;
-  padding: 0.5em 1em;
-}
-
-.toTopButton a:visited {
-  color: var(--SH-green);
-}
-
 @media screen and (max-width: 800px) {
   .toTopButton {
     grid-column: 2/8;

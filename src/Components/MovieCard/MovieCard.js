@@ -1,6 +1,7 @@
 import React, {useState, useRef} from 'react';
 import Placeholder from '../../Images/placeholder.png';
 import MovieInfo from '../MovieInfo/MovieInfo';
+import {FaTimes} from 'react-icons/fa';
 
 import '../global.css';
 import * as styles from './movieCard.module.css';
@@ -74,10 +75,10 @@ const MovieCard = ({
           )}
           {category === 'Nominations' && (
             <button
-              className="removeButton"
+              className={`${styles.removeButton} iconButton`}
               onClick={() => handleRemove(movie)}
             >
-              <span className="fas fa-times" />
+              <FaTimes />
             </button>
           )}
         </div>

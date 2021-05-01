@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import Results from '../Results/Results';
 import TopButton from '../TopButton/TopButton';
+import {FaSearch} from 'react-icons/fa';
 
 import '../global.css';
 import * as styles from './searchBar.module.css';
@@ -62,7 +63,7 @@ const Search = (props) => {
               className={styles.searchButton}
               value="Submit"
             >
-              <span className="fas fa-search" />
+              <FaSearch />
             </button>
           </fieldset>
         </form>

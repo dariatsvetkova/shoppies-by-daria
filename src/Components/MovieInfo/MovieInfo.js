@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useRef, forwardRef} from 'react';
 import Placeholder from '../../Images/placeholder.png';
 import Spinner from '../Spinner/Spinner';
+import {FaTimes} from 'react-icons/fa';
 
 import '../global.css';
 import * as styles from './movieInfo.module.css';
@@ -85,7 +86,7 @@ const MovieInfo = forwardRef(({
           ref={closeButton}
           onClick={shouldClose}
         >
-          <span className="fas fa-times" />
+          <FaTimes />
         </button>
 
         {loading && <Spinner />}

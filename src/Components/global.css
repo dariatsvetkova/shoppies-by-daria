@@ -204,16 +204,35 @@ button:disabled {
   border-color: transparent;
 }
 
-.arrowButton {
+.iconButton {
   color: var(--SH-green);
-  border: 3px solid var(--SH-green);
   background-color: var(--SH-white);
+  border: 3px solid var(--SH-green);
 }
 
-.arrowButton:active {
+.iconButton:active {
   background-color: var(--SH-white);
   border: 3px solid var(--SH-green);
 }
+
+.iconButton > * {
+  margin-bottom: -0.17em;
+}
+
+.iconButton a {
+  display: inline-block;
+  padding: 0.5em 1em;
+}
+
+.iconButton a:visited {
+  color: var(--SH-green);
+}
+
+.iconButton a:hover,
+.iconButton a:focus,
+.iconButton a:active {
+  color: var(--SH-light-green);
+}  
 
 .pop {
   animation: pop 0.3s 1 !important;

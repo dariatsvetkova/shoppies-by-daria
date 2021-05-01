@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Banner from '../Banner/Banner';
 import MovieCard from '../MovieCard/MovieCard';
+import {FaAngleUp, FaAngleDown} from 'react-icons/fa';
 
 import '../global.css';
 import * as styles from './nominations.module.css';
@@ -27,12 +28,13 @@ const Nominations = ({
           <span className={styles.nominationsCount}>{listLength}</span>
         </h3>
         <button
-          className={`${styles.dropdownButton} arrowButton`}
+          className={`${styles.dropdownButton} iconButton`}
           onClick={() => setOpen(!open)}
         >
-          <span className={open ?
-            'fas fa-angle-up' :
-            'fas fa-angle-down'} />
+          {open ?
+            <FaAngleUp /> :
+            <FaAngleDown />
+          }
         </button>
       </div>
 

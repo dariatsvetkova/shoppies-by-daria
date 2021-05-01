@@ -49,6 +49,11 @@
   font-style: italic; 
 }
 
+.movieCard .removeButton {
+  background-color: var(--SH-green);
+  color: var(--SH-white);
+}
+
 .movieCardSearch img {
   max-width: 5.56em;
 }

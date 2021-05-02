@@ -10,7 +10,7 @@ async function search(searchTerm, page) {
       } else if ((/\s/).test(symbol) && (/\s/).test(array[ind + 1])) {
         return false;
       } else {
-        return (/[a-z\d\s\-]/).test(symbol);
+        return (/[a-z\d\s\-\']/).test(symbol);
       }
     });
     return cleanArray.join('');

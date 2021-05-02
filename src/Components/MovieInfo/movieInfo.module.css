@@ -5,11 +5,12 @@
   transform: translate(-50%, -50%);
   z-index: 5;
   width: 70vw;
+  background-color: var(--SH-white);
+  border: 5px solid var(--SH-green);
+  box-shadow: 0 0 30px var(--SH-dark-grey);
 }
 
 .movieInfo {
-  border: 5px solid var(--SH-green);
-  box-shadow: 0 0 30px var(--SH-dark-grey);
   font-size: 1.1em;
   display: flex;
   flex-flow: column nowrap;
@@ -58,6 +59,7 @@
 
 .movieDetails dt {
   font-weight: 500;
+  margin-bottom: 0.5em;
 }
 
 .movieDetails dd {
@@ -72,6 +74,8 @@
   @media screen and (max-width: 1024px) {
     .movieInfoWrapper {
       width: 90vw;
+      max-height: 80vh;
+      overflow: scroll; 
     }
     
     @media screen and (max-width: 600px) {
@@ -93,6 +97,11 @@
 
       .movieDetails img {
         max-width: 150px;
+      }
+
+      .movieDetails h4, 
+      .movieDetails span {
+        text-align: center;
       }
 
       .movieDetails dl {

@@ -74,11 +74,11 @@ const MovieInfo = forwardRef(({
 
   return (
     <div
-      className={`${styles.movieInfoWrapper} boxPop`}
+      className={`${styles.movieInfoWrapper} box boxPop`}
       ref={ref}
     >
       <div
-        className={`${styles.movieInfo} box`}
+        className={styles.movieInfo}
         ref={movieInfo}
       >
         <button

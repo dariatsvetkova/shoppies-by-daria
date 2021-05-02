@@ -24,9 +24,11 @@ The features are based on the Shopify challenge requirements; all the extras are
  
 ### Movie search:
  
-The app uses the [OMDB](http://www.omdbapi.com) API to search for movies by title. The search is intentionally limited to movies only.
+* The app uses the [OMDB](http://www.omdbapi.com) API to search for movies by title. The search is intentionally limited to movies only.
  
-:sparkles: The API only returns 10 results per request. If the search returns over 10 results, the Show More button displays pages 2+ of the search results.
+* The API only returns 10 results per request. If the search returns over 10 results, the Show More button displays pages 2+ of the search results.
+ 
+:sparkles: Unwanted characters such as punctuation marks, double and trailing spaces are removed from the search query to ensure successful data retrieval from the API.
  
 :sparkles: If the search returns too many results or no results at all, an alert is displayed instead of the search results.
  
@@ -35,31 +37,27 @@ The app uses the [OMDB](http://www.omdbapi.com) API to search for movies by titl
  
 ### Nominating the movies:
  
-The user is asked to nominate five movies from their search results. Their nominations appear under *Your Nominations*. From there, the user can view detailed information about the movie or remove it from nominations.
+* The user is asked to nominate five movies from their search results. Their nominations appear in the Nomination box. From there, the user can view detailed information about the movie or remove it from nominations.
  
-:sparkles: Nominations are saved to the browser's local storage and restored next time they visit the page (unless they've submitted the nominations in their previous session).
+:sparkles: Nominations are saved to the browser's local storage and restored next time the user visits the page (unless they've submitted the nominations in their previous session).
  
  
 ### Submitting the nominations:
  
-When the user has selected five movies, a banner appears next to the nominations, allowing them to submit their choice.
- 
-:sparkles: The submission triggers a confirmation screen to appear.
- 
-:sparkles: The nominations are removed from the local storage on submission, making the app reusable for testing purposes.
- 
+* When the user has selected five movies, the banner appears within the Nominations box to notify them that they can now submit their choice.
+
 :sparkles: Upon submission, a confirmation screen appears, with buttons for sharing the app on Facebook and Twitter.
+  
+:sparkles: The nominations are removed from the local storage on submission, making the app reusable for testing purposes.
  
  
 ### UI features:
  
-:sparkles: CSS animations are added for the app's welcome screen, loading search results and movie details; opening/closing the movie details card; adding/removing movies from the list; appearing/disappearing of the banner.
+:sparkles: The following elements are animated: the app's welcome screen; search results loading; movie details loading; movie details opening/closing; movies being added/removed from nominations; banner appearing/disappearing.
  
 :sparkles: Nominations list sticks to the top of the page when the user scrolls through search results, allowing easy access.
  
-:sparkles: On smaller screens, the Nominations box becomes collapsible and shows the total number of nominations to improve usability.
- 
-:sparkles: When 5 movies have been selected, the banner appears within the Nominations box to notify the user that they can now submit their choice.
+:sparkles: On smaller screens, the Nominations box becomes collapsible and shows the total number of nominations to improve user experience.
  
 :sparkles: Back-to-top button appears at the bottom of the screen as the user scrolls through the search results.
  

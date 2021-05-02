@@ -6,7 +6,7 @@ import * as styles from './layout.module.css';
 
 const Layout = ({children}) => (
   <>
-    <header className="gridContainer">
+    <header className="gridContainer appear">
       <div className={styles.heading}>
         <img
           className={styles.logo}
@@ -20,26 +20,25 @@ const Layout = ({children}) => (
       </span>
       <div className={styles.buttonContainer}>
         <a href="#search">
-          <button className={styles.headerButton}>
+          <button>
             Nominate directors
           </button>
         </a>
       </div>
     </header>
 
-    <main>
+    <main className="appear">
       <section className={`${styles.intro} gridContainer`}>
         <h2>Recognizing film entrepreneurs</h2>
         <article>
-          <p>{`There is one thing that Shopify store owners and movie directors have in common: they are all entrepreneurs. Both are driven by their vision; both make a thousand crucial decisions every day, both overcome obstacles to bring their dreams to life.`}</p>
-          <p>{`In today’s world, when movie theatres remain closed around the world, we would like to honour our favourite movie directors in a new way — by awarding them with The Shoppies, the first movie award based on the votes of eCommerce entrepreneurs.`}</p>
+          <p>{`There is one thing that Shopify store owners and movie directors have in common: they are all entrepreneurs. We would like to honour our favourite movie directors by awarding them with The Shoppies, the first movie award based on the votes of eCommerce entrepreneurs.`}</p>
         </article>
       </section>
 
       {children}
     </main>
 
-    <footer>
+    <footer className="appear">
       <div className={styles.heading}>
         <img
           className={styles.logo}

@@ -8,10 +8,9 @@
   position: relative;
   text-align: left;
   box-shadow: 1px 1px 5px var(--SH-light-grey);
-  transition: all 0.3s;
 }
 
-.movieCard>* {
+.movieCard > * {
   margin: 0.5em;
 }
 
@@ -60,14 +59,8 @@
 
 .movieCardNominations {
   font-size: 0.75em;
-  animation: 0.3s 1 pop;
 }
 
 .movieCardNominations img {
   max-width: 2.78em;
-}
-
-.movieCardNominations .infoButton {
-  color: var(--SH-green);
-  border: 3px solid var(--SH-green);
 }

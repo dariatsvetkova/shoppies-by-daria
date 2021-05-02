@@ -1,9 +1,19 @@
+.searchLoading,
+.searchError,
 .searchResults {
   grid-column: 2/6;
-  grid-row: 3/5;
-  text-align: right;  /* Aligns the back-to-top button   */
   margin-bottom: 2em;
-  animation: 1s 1 appear;
+  height: fit-content;
+}
+
+.searchLoading,
+.searchError {
+  grid-row: 3/4;
+}
+
+.searchResults {
+  text-align: right;  /* Aligns the back-to-top button   */
+  grid-row: 3/5;
 }
 
 .resultList {
@@ -15,13 +25,21 @@
   text-align: left;
 }
 
+.searchAlert {
+  margin-bottom: 2.2em;
+}
+
 @media screen and (max-width: 800px) {
+  .searchLoading,
+  .searchError,
   .searchResults {
     grid-column: 2/8;
     grid-row: 4/5;
   }
 
   @media screen and (max-width: 600px) {
+    .searchLoading,
+    .searchError,
     .searchResults {
       grid-column: 2/3;
     }

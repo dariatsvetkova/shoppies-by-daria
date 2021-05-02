@@ -18,7 +18,7 @@ const Submitted = () => {
       <h2>Thank you!</h2>
       <article>
         <p>Your Shoppies nominations have been submitted.</p>
-        <p>Share your choices on social media:</p>
+        <p>Share on social media:</p>
         <div>
           <button className={`${styles.socialButton} iconButton`}>
             <a

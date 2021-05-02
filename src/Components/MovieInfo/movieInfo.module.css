@@ -65,17 +65,17 @@
 }
 
 @media screen and (max-width: 1250px) {
-  .movieInfo {
+  .movieInfoWrapper {
     width: 80vw;
   }
 
   @media screen and (max-width: 1024px) {
-    .movieInfo {
+    .movieInfoWrapper {
       width: 90vw;
     }
     
     @media screen and (max-width: 600px) {
-      .movieInfo {
+      .movieInfoWrapper {
         font-size: 1.2em;
       }
             

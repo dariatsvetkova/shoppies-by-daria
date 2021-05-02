@@ -25,6 +25,7 @@ const Nominations = ({
       <div className={styles.nominationsHeading}>
         <h3>
           Your nominations:
+          {' '}
           <span className={styles.nominationsCount}>{listLength}</span>
         </h3>
         <button

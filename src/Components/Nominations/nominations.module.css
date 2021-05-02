@@ -29,7 +29,6 @@
 }
 
 @media screen and (max-width: 800px) {
-  
   .nominations {
     grid-column: 2/8;
     grid-row: 3/4;
@@ -44,8 +43,8 @@
     display: block;
   }
 
-  .nominations ul,
-  .nominations li,
+  .nominatedList,
+  .nominatedList li,
   .nominationsPlaceholder {
     visibility: hidden;
     user-select: none;
@@ -55,7 +54,7 @@
     opacity: 0;
   }
 
-  .nominations ul {
+  .nominatedList {
     height: 0.1em;
     margin-top: -0.5em;
     transition: all 0.5s linear;

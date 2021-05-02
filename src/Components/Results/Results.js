@@ -82,48 +82,53 @@ const Results = ({
   }
 
   return (
-    <div className={`${styles.searchResults} box`}>
+    <>
       {loading &&
-        <Spinner />
+        <section className={`${styles.searchLoading} box appear`}>
+          <Spinner />
+        </section>
       }
       {alert.length > 0 &&
-        <p className={styles.searchAlert}>{alert}</p>
+        <section className={`${styles.searchError} box appear`}>
+          <p className={styles.searchAlert}>{alert}</p>
+        </section>
       }
       {results.length > 0 &&
-        <div className={styles.resultList}>
-          <h3>
-            {totalResults}
-            {' '}
-            results found for &quot;
-            {searchTerm}
-            &quot;:
-          </h3>
-          <ul>
-            {results.map((movie) =>
-              <MovieCard
-                key={`Search-${movie.imdbID}`}
-                movie={movie}
-                category="Search"
-                disableNominate={
-                  disableNominate.indexOf(movie.imdbID) >= 0 ||
-                  nominatedList.length === 5
-                }
-                nominate={nominate}
-              />,
-            )}
-          </ul>
-          {totalResults > page * 10 &&
-            <button
-              className={styles.showMoreButton}
-              // Trigger an API call in useEffect:
-              onClick={() => setPage(page + 1)}
-            >
-              Show more
-            </button>
-          }
-        </div>
+        <section className={`${styles.searchResults} box appear`}>
+          <div className={styles.resultList}>
+            <h3>
+              {totalResults}
+              {' '}
+              results found for &quot;
+              {searchTerm}
+              &quot;:
+            </h3>
+            <ul>
+              {results.map((movie) =>
+                <MovieCard
+                  key={`Search-${movie.imdbID}`}
+                  movie={movie}
+                  category="Search"
+                  disableNominate={
+                    disableNominate.indexOf(movie.imdbID) >= 0 ||
+                    nominatedList.length === 5
+                  }
+                  nominate={nominate}
+                />,
+              )}
+            </ul>
+            {totalResults > page * 10 &&
+              <button
+                // Trigger an API call in useEffect:
+                onClick={() => setPage(page + 1)}
+              >
+                Show more
+              </button>
+            }
+          </div>
+        </section>
       }
-    </div>
+    </>
   );
 };
 

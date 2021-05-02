@@ -19,17 +19,17 @@ const Results = ({
   const [error, setError] = useState('');
   const [page, setPage] = useState(1);
 
-  const handleSearch = () => {
+  const handleSearch = (s, p) => {
     setLoading(true);
     // Retrieve data from the API:
-    search(searchTerm, page)
+    search(s, p)
         .then((data) => {
           setTotal(data.totalResults);
           setError(data.error);
 
           // Since the API returns 10 results per page,
           // for pages 2+, add the results to the existing list:
-          const newResults = page > 1 ?
+          const newResults = p > 1 ?
           [...results, ...data.searchResults] :
           data.searchResults;
 

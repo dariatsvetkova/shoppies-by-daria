@@ -1,9 +1,9 @@
-# The Shoppies by Daria
+# Shoppies by Daria
  
 An app for searching movies and nominating them for The Shoppies, a fictional movie award. Built with React, [Create React App](https://github.com/facebook/create-react-app), JavaScript and CSS.
  
  
-https://user-images.githubusercontent.com/68360696/116801885-09455d80-aadc-11eb-8305-cbf09020ae91.mp4
+https://user-images.githubusercontent.com/68360696/116820333-7be92400-ab42-11eb-8ebb-7773325f79e2.mp4
  
  
 ## Installation and Setup Instructions

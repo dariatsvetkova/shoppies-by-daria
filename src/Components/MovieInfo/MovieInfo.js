@@ -42,7 +42,7 @@ const MovieInfo = forwardRef(({
           setError(true);
         })
         .finally(() => setLoading(false));
-  });
+  }, []);
 
   const {
     Title,

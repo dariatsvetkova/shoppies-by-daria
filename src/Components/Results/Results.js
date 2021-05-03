@@ -55,9 +55,10 @@ const Results = ({
   }, [searchTerm]);
 
   // If the page number updates, request another page for the same search term:
-  useEffect(() => {
-    handleSearch(searchTerm, page);
-  }, [page]);
+  const handleClick = () => {
+    handleSearch(searchTerm, page + 1);
+    setPage(page + 1);
+  };
 
   // Get IDs of all nominated movies
   // (prevents movies from local storage from being nominated twice):
@@ -119,8 +120,7 @@ const Results = ({
             </ul>
             {totalResults > page * 10 &&
               <button
-                // Trigger an API call in useEffect:
-                onClick={() => setPage(page + 1)}
+                onClick={handleClick}
               >
                 Show more
               </button>

@@ -31,7 +31,7 @@
   z-index: 1;
   right: 0;
   left: auto;
-  top: 0;
+  bottom: 0;
   border-radius: 0 4px 4px 0;
   height: 3.5em;
 }

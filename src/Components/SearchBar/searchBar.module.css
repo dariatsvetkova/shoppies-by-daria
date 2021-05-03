@@ -22,17 +22,18 @@
   border: 1px solid var(--SH-light-grey);
   padding: 1em;
   border-radius: 4px;
+  height: 3.5em;
 }
 
 .searchButton {
   display: inline-block;
   position: absolute;
   z-index: 1;
-  right: -2px;
+  right: 0;
   left: auto;
-  top: -1px;
+  top: 0;
   border-radius: 0 4px 4px 0;
-  height: 102%;
+  height: 3.5em;
 }
 
 .searchButton:active {

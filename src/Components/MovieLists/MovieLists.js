@@ -11,25 +11,17 @@ const MovieLists = ({submit}) => {
   useEffect(() => {
     // If there are items in local storage from before,
     // use them to set nominations:
-    if (window.localStorage.length > 0) {
-      const localItems = [];
-
-      for (const key in window.localStorage) {
-        if (key.match(/movie-[1-5]/)) {
-          const item = localStorage.getItem(key);
-          item !== 'undefined' &&
-            localItems.push(JSON.parse(item));
-        }
-      }
-      localItems.length > 0 && setNominated(localItems);
+    const storageObj = localStorage.getItem('shoppies-by-daria');
+    if (storageObj) {
+      const localMovies = JSON.parse(storageObj);
+      localMovies.length > 0 && setNominated(localMovies);
     }
   }, []);
 
   // Add a movie to the list of nominations:
   const nominate = (movie) => {
     const newList = [...nominatedList, movie];
-    updateLocal(newList);
-    return setNominated([...newList]);
+    return updateNominated(newList);
   };
 
   // Remove a movie from the list of nominations:
@@ -40,23 +32,17 @@ const MovieLists = ({submit}) => {
 
     const newList = nominatedList;
     newList.splice(ind, 1);
-
-    updateLocal(newList);
-    return setNominated([...newList]);
+    return updateNominated(newList);
   };
 
-  // Update local storage whenever there is a change in nominations:
-  const updateLocal = (list) => {
-    for (let i = 0; i < 5; i++) {
-      if (list[i]) {
-        localStorage.setItem(
-            `movie-${i + 1}`,
-            JSON.stringify(list[i]),
-        );
-      } else {
-        localStorage.removeItem(`movie-${i + 1}`);
-      }
-    }
+  // Update nominated list and local storage
+  // whenever there is a change in nominations:
+  const updateNominated = (list) => {
+    localStorage.setItem(
+        'shoppies-by-daria',
+        JSON.stringify(list),
+    );
+    setNominated([...list]);
   };
 
   return (
